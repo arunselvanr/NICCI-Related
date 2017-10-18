@@ -478,7 +478,10 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
  \frametitle{Approximate asynchronous Policy Gradient Descent (AAPGD)}
  \begin{itemize}
   \item Basic idea of PGD is the existence of a parameterization $\pi(\theta)$ 
-  {\color{purple}(policy objective function)}, Sutton et. al. \cite{p9}. 
+  {\color{purple}(policy objective function)}, Sutton et. al. \footnote{
+  {\footnotesize \color{purple} R.S. Sutton et al. "Policy gradient methods for reinforcement learning with function approximation." 
+ Advances in neural information processing systems. 2000.}
+  }. 
   The goal is to find
   a local minimizer $\hat{\theta}$.
   \end{itemize}
@@ -626,7 +629,11 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
   {\color{purple}$\{J \mid \lVert TJ - J \rVert_{\omega, p} \le \epsilon \}$} is the limiting set of the
   re-engineered value iteration scheme.
 \item Stability ($\sup \limits_{n \ge 0} \lVert x_n \rVert < \infty$ a.s.) is always a concern in approximate dynamic programming, reinforcement learning approaches.
-  \item Our stability conditions are Lyapunov function based, extending \cite{p}.
+  \item Our stability conditions are Lyapunov function based, extending Ramaswamy and Bhatnagar
+  \footnote{{\color{purple} \footnotesize A. Ramaswamy and S. Bhatnagar (2017).
+ Conditions for Stability and Convergence of
+Set-Valued Stochastic Approximations: Applications to Approximate Value and Fixed
+point Iterations with Noise. Submitted in September, 2017.}}
  \end{itemize}
 \end{frame}
 \section{Summary}
