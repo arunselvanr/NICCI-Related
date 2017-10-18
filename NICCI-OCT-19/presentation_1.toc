@@ -1,7 +1,7 @@
 \beamer@endinputifotherversion {3.36pt}
 \beamer@sectionintoc {1}{Networked control systems}{3}{0}{1}
 \beamer@sectionintoc {2}{Radio Resource Management}{5}{0}{2}
-\beamer@sectionintoc {3}{Constrained MPCs}{10}{0}{3}
-\beamer@sectionintoc {4}{Reinforcement Learning}{15}{0}{4}
-\beamer@sectionintoc {5}{Summary}{21}{0}{5}
-\beamer@sectionintoc {6}{Future Work}{22}{0}{6}
+\beamer@sectionintoc {3}{Optimizing communication for MPC}{10}{0}{3}
+\beamer@sectionintoc {4}{Reinforcement Learning}{14}{0}{4}
+\beamer@sectionintoc {5}{Summary}{20}{0}{5}
+\beamer@sectionintoc {6}{Future Work}{21}{0}{6}

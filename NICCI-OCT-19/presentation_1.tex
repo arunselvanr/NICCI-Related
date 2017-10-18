@@ -263,89 +263,77 @@ Paderborn University \\ % Your institution for the title page
     \includegraphics[width=0.6\columnwidth]{rewards-correlated}
   \end{center}
 \end{frame}
-\section{Constrained MPCs}
+\section{Optimizing communication for MPC}
 \begin{frame}
-\centerline{\textbf{Chapter II: Constrained MPC for a given communication schedule}
+\centerline{\textbf{Chapter II: Scheduling communications for output feedback MPC}
 }
 % \begin{center}
 %  Markus K\"{o}gel and Prof. Rolf Findeisen
 % \end{center}
 \end{frame}
 \begin{frame}
- \frametitle{MPC under reliable communication schedule}
+ \frametitle{Motivation and setup}
  \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth, height = .25\textheight]{clc.png}
+\includegraphics[width=0.4\textwidth ]{clc.png}
 % \caption{{\footnotesize Source: \href{https://heemels.tue.nl/research/networked-control}{www.heemels.tue.nl}}} 
 % \label{fig1}
 \end{figure}
  \begin{itemize}
-  \item Dynamics: (i) Unknown but bounded uncertainties (ii) Discrete-time linear systems (iii) noisy measurements.
-  \item Communications networks: (i) Reliable (ii) Single link available: either \textbf{to actuator} \textit{or}
-  \textbf{from sensor}.
-  \item Challenge: When/what/where to send/receive to maximize control performance.
+  \item Dynamics: (i) unknown, but bounded uncertainties, (ii) discrete time, linear systems, (iii) noisy measurements.
+  \item Communications networks: (i) reliable, (ii) limited communication. %, \textit{for example}  either \textbf{to actuator} \textit{or}   \textbf{from sensor}.
+  \item Challenge: When/what/where to send to maximize  performance.
  \end{itemize}
 \end{frame}
 \begin{frame}
-\frametitle{Different possible communication choices provided by the RRM}
-\vspace*{-.3in}
+\frametitle{Communication scheduling - basic idea} 
+
+\begin{itemize}\item \textbf{Toy example:}
+\begin{itemize}
+ \item   either sensor sends $y_k$ or controller sends $u_k$. 
+  \item[] If no data is received, then actuator uses $u_k = u_{k-1}$.
+	\item Question: when to sense and when to actuate? %Benefit of sending extra data? 
+ \end{itemize}
+
+	\item \textbf{
+  Solution approach to optimize communication:}
+	\begin{itemize}
+\item consider fixed communication schedule  
+\item compare  schedules, select the one with best  performance
+\end{itemize}	
+	Requires: Efficient performance evaluation, avoid controller tuning.
+\end{itemize}
+
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth, height = .25\textheight]{timing.png}
- \caption{{\footnotesize Fixed reliable communication schedule}} 
+\vspace*{-.2in}
+\includegraphics[width=0.7\textwidth ]{timing2.png}\\
+  {{\footnotesize Communication schedule}} 
 % \label{fig1}
-\end{figure}
-\vspace*{-.3in}
-\begin{itemize}
- \item What to communicate (how much data):
- \begin{itemize}
-  \item \textbf{Naive approach:} Sensors send $y_k$ while controllers send $u_k$.
-  \item[] If no data is received at time $k$, then the actuators use $u_k = 0$ or $u_k = u_{k-1}$.
- \end{itemize}
-  \begin{itemize}
-   \item \textbf{General Case:} Multiple measurements/commands in each packet
-   \item[] (a) Piggy back old measurements, e.g., send $y_k$ and $y_{k-1}$ at $k$.
-   \item[] (b) Send input sequences, e.g., send $u_{k}$ and $u_{k+1}$ at $k$.
-  \end{itemize}
-  \item Requirement: Simple performance evaluation and avoid influence of tuning.
-\end{itemize}
+\end{figure} 
 \end{frame}
 \begin{frame}
- \frametitle{Exploit robust output feedback MPC}
- \begin{itemize}
-  \item We start with the basics of robust output feedback MPC.
-  \item \textbf{Framework:} (i) LTI system with bounded process noise, $x_{k+1} = A x_k + B u_k + w_k$,
-  where $x_k \in \mathbb{X}$, $u_k \in \mathbb{U}$ and $w_k \in \mathbb{W}$.\\
-  (ii) There exist constraints on $x_k$ and $u_k$.\\
-  (iii) Sensor measurements, bounded noise: $y_k = C x_k + v_k, \ v_k \in \mathbb{V}$.
-  \item[]
-  \item \textbf{Robust output feedback MPC:}
+ \frametitle{Problem setup and contribution  }
+ \begin{itemize} 
+  \item \textbf{Considered system class:} \\(i) LTI system with process noise, $x_{k+1} = A x_k + B u_k + w_k$,  $w_k \in \mathbb{W}$.\\
+  (ii) State and input constraints: $x_k\in\mathbb{X}$ and $u_k\in\mathbb{U}$.\\
+  (iii) Noisy measurements: $y_k = C x_k + v_k, \ v_k \in \mathbb{V}$.
+    \item \textbf{Robust output feedback MPC} (model predictive control):
   \begin{itemize}
-   \item \textbf{Tube approach:} Decompose dynamics into (a) \textbf{nominal system} (no noise) + MPC
-   and (b) \textbf{error systems + fixed linear controller}.
-   \item \textbf{Control objective:} \textbf{Worst case optimal set-point tracking:}
-   \begin{itemize}
-    \item Minimize back-off from constraints (set $\mathbb{Z}$) - tune ``tube controller''.
-   \end{itemize}
-  \end{itemize}
- \end{itemize}
-\end{frame}
-\begin{frame}
- \frametitle{Our contribution}
- \vspace*{-.3in}
- \begin{figure}
-\centering
-\includegraphics[width=0.5\textwidth, height = .3\textheight]{tubes.png}
-  \caption{{\footnotesize ``Economic performance'' $Z_k = F x_k + G u_k$}} 
-% \label{fig1}
-\end{figure}
-\vspace*{-.3in}
-\begin{itemize}
- \item Automated optimal controller design for a given communication schedule.
- \item Allows for comparison between different communication schedules.
- \item Guarantees on closed-loop behavior (constraint satisfaction, robust stability).
- \item Computationally efficient.
+   \item \textbf{Tube approach:} Decompose dynamics into (a)  nominal system + MPC
+   and (b) error systems +  \textbf{ ``tube controller''}.
+   \item \textbf{Performance:} For example  worst case optimal set-point tracking: 
+  \end{itemize}  
+	$\Rightarrow$    ``Minimize''  distance from optimality - tune ``tube controller''! 
+\item  \textbf{Contribution:}
+\begin{itemize}  
+\item 
+Automated, efficient optimal controller design  for given schedule
+ \item Allows for comparison between different schedules.
+ \item Guarantees on closed loop behavior (constraint satisfaction, stability). 
 \end{itemize}
+\end{itemize}
+ 
 
 \end{frame}
 
