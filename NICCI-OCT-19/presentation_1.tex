@@ -91,7 +91,7 @@
 
 \title[NICCI]{NICCI: Network-Informed Control -- Control-Informed Network} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author[Arun]{Arunselvan Ramaswamy %\\ \&
+\author[Arun]{Dr. Arunselvan Ramaswamy %\\ \&
  } % Your name
 \institute[Paderborn University] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
@@ -101,7 +101,7 @@ Paderborn University \\ % Your institution for the title page
 %\vspace*{.1in}
 %Whose involved
 }
-\date{\today} % Date, can be changed to a custom date
+\date{October 19, 2017} % Date, can be changed to a custom date
 % \usebackgroundtemplate{%
 % \tikz[overlay,remember picture] \node[opacity=0.2, at=(current page.center)] {
 %    \includegraphics[height=.3\paperheight,width=.2\paperwidth]{upb.jpg}};
@@ -216,13 +216,13 @@ Paderborn University \\ % Your institution for the title page
   \item Markov chain extracted from  Clark's model 
     \begin{itemize}
     \item States correspond to Signal-to-noise ratio (SNR) regions
-    \item which in turn correspond to
+    \item Which in turn correspond to
       Modulation/Coding Scheme (MCS) performance at negligible transmission error rate.
     \end{itemize}
     \item[]
   \item Under these assumptions: 
     \begin{itemize}
-    \item What is the \emph{time-limited capacity}, for an acceptable model prediction.
+    \item What is the \emph{time-limited capacity}, for an acceptable model prediction
       error?
       \begin{itemize}
       \item In a sense: Real-time version of outage capacity. 
@@ -233,9 +233,21 @@ Paderborn University \\ % Your institution for the title page
   \item Formulate as Markov reward (no.\ of bits that can be transmitted) model.
   \end{itemize}
 \end{frame}
+\begin{frame}
+  \frametitle{Time-limited capacity: First hints at results}
+  \begin{itemize}
+  \item What is the (normalized, per time slot) {\color{blue}available capacity}
+  for {\color{blue}different acceptable error rates} over {\color{blue}increasing number of time slots}?
+  \item \textbf{Observation}: Clear dependence on acceptable error rate. 
+  \end{itemize}
+  
+  \begin{center}
+    \includegraphics[width=0.6\columnwidth]{rewards-correlated}
+  \end{center}
+\end{frame}
 
 \begin{frame}
-  \frametitle{Time-limited capacity: Influencing factors}
+  \frametitle{Closing Remarks: Influencing factors in time-limited capacity}
   \begin{center}
     \begin{tikzpicture}[box/.style = {draw, minimum height=12mm,
         align=center}]
@@ -246,21 +258,6 @@ Paderborn University \\ % Your institution for the title page
       \draw[] (aer) -- (ccs); 
       \draw[] (mcs) -- (ccs); 
     \end{tikzpicture}
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Time-limited capacity: First hints at results}
-  \begin{itemize}
-    
-  \item Over increasing number of time slots 
-  \item What is the (normalized, per time slot) available capacity
-  \item For different acceptable error rates 
-  \item \textbf{Observation}: Rate of increase depends on acceptable error rate 
-  \end{itemize}
-  
-  \begin{center}
-    \includegraphics[width=0.6\columnwidth]{rewards-correlated}
   \end{center}
 \end{frame}
 \section{Output Feedback MPC with Scheduled Communications}

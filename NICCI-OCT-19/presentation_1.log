@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.25)  18 OCT 2017 17:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.25)  18 OCT 2017 18:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1083,178 +1083,185 @@ Package pdftex.def Info: upb.png used on input line 235.
  [7
 
 ]
-File: mag.jpg Graphic file (type jpg)
- <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 250.
-(pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
-File: upb.png Graphic file (type png)
- <use upb.png>
-Package pdftex.def Info: upb.png used on input line 250.
-(pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
- [8
-
-]
-<rewards-correlated.png, id=380, 578.16pt x 472.164pt>
+<rewards-correlated.png, id=355, 578.16pt x 472.164pt>
 File: rewards-correlated.png Graphic file (type png)
 
 <use rewards-correlated.png>
-Package pdftex.def Info: rewards-correlated.png used on input line 265.
+Package pdftex.def Info: rewards-correlated.png used on input line 247.
 (pdftex.def)             Requested size: 205.37926pt x 167.72385pt.
-
-Overfull \vbox (2.14655pt too high) detected at line 265
- []
-
 File: mag.jpg Graphic file (type jpg)
-<use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 265.
+ <use mag.jpg>
+Package pdftex.def Info: mag.jpg used on input line 247.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
  <use upb.png>
-Package pdftex.def Info: upb.png used on input line 265.
+Package pdftex.def Info: upb.png used on input line 247.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
- [9
+ [8
 
  <./rewards-correlated.png>]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 273.
-(pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
-File: upb.png Graphic file (type png)
-
-<use upb.png>
-Package pdftex.def Info: upb.png used on input line 273.
-(pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
- [10
-
-] <clc.png, id=435, 287.6346pt x 173.9298pt>
-File: clc.png Graphic file (type png)
- <use clc.png>
-Package pdftex.def Info: clc.png used on input line 287.
-(pdftex.def)             Requested size: 136.91603pt x 82.79266pt.
-File: mag.jpg Graphic file (type jpg)
-
-<use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 287.
+Package pdftex.def Info: mag.jpg used on input line 262.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
  <use upb.png>
-Package pdftex.def Info: upb.png used on input line 287.
+Package pdftex.def Info: upb.png used on input line 262.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
- [11
+ [9
 
- <./clc.png>]
-<timing2.png, id=463, 337.26pt x 123.8226pt>
-File: timing2.png Graphic file (type png)
- <use timing2.png>
-Package pdftex.def Info: timing2.png used on input line 314.
-(pdftex.def)             Requested size: 239.60567pt x 87.97133pt.
+]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 314.
+Package pdftex.def Info: mag.jpg used on input line 270.
+(pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
+File: upb.png Graphic file (type png)
+ <use upb.png>
+Package pdftex.def Info: upb.png used on input line 270.
+(pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
+ [10
+
+]
+<clc.png, id=435, 287.6346pt x 173.9298pt>
+File: clc.png Graphic file (type png)
+ <use clc.png>
+Package pdftex.def Info: clc.png used on input line 284.
+(pdftex.def)             Requested size: 136.91603pt x 82.79266pt.
+File: mag.jpg Graphic file (type jpg)
+ <use mag.jpg>
+Package pdftex.def Info: mag.jpg used on input line 284.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
 
 <use upb.png>
-Package pdftex.def Info: upb.png used on input line 314.
+Package pdftex.def Info: upb.png used on input line 284.
+(pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
+ [11
+
+ <./clc.png>] <timing2.png, id=463, 337.26pt x 123.8226pt>
+File: timing2.png Graphic file (type png)
+
+<use timing2.png>
+Package pdftex.def Info: timing2.png used on input line 311.
+(pdftex.def)             Requested size: 239.60567pt x 87.97133pt.
+File: mag.jpg Graphic file (type jpg)
+ <use mag.jpg>
+Package pdftex.def Info: mag.jpg used on input line 311.
+(pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
+File: upb.png Graphic file (type png)
+ <use upb.png>
+Package pdftex.def Info: upb.png used on input line 311.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [12
 
  <./timing2.png>]
 File: mag.jpg Graphic file (type jpg)
- <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 338.
+
+<use mag.jpg>
+Package pdftex.def Info: mag.jpg used on input line 335.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
  <use upb.png>
-Package pdftex.def Info: upb.png used on input line 338.
+Package pdftex.def Info: upb.png used on input line 335.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [13
 
 ]
 File: mag.jpg Graphic file (type jpg)
-
-<use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 369.
+ <use mag.jpg>
+Package pdftex.def Info: mag.jpg used on input line 366.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
  <use upb.png>
-Package pdftex.def Info: upb.png used on input line 369.
+Package pdftex.def Info: upb.png used on input line 366.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [14
 
-] <ncs2.jpg, id=548, 383.63326pt x 234.8775pt>
+]
+<ncs2.jpg, id=548, 383.63326pt x 234.8775pt>
 File: ncs2.jpg Graphic file (type jpg)
-
-<use ncs2.jpg>
-Package pdftex.def Info: ncs2.jpg used on input line 386.
+ <use ncs2.jpg>
+Package pdftex.def Info: ncs2.jpg used on input line 383.
 (pdftex.def)             Requested size: 205.37932pt x 78.14417pt.
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 386.
+Package pdftex.def Info: mag.jpg used on input line 383.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
- <use upb.png>
-Package pdftex.def Info: upb.png used on input line 386.
+
+<use upb.png>
+Package pdftex.def Info: upb.png used on input line 383.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [15
 
  <./ncs2.jpg>]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 407.
+Package pdftex.def Info: mag.jpg used on input line 404.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
-
-<use upb.png>
-Package pdftex.def Info: upb.png used on input line 407.
+ <use upb.png>
+Package pdftex.def Info: upb.png used on input line 404.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [16
 
 ]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 445.
+Package pdftex.def Info: mag.jpg used on input line 442.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
- <use upb.png>
-Package pdftex.def Info: upb.png used on input line 445.
+
+<use upb.png>
+Package pdftex.def Info: upb.png used on input line 442.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [17
 
 ]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 490.
+Package pdftex.def Info: mag.jpg used on input line 487.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
-
-<use upb.png>
-Package pdftex.def Info: upb.png used on input line 490.
+ <use upb.png>
+Package pdftex.def Info: upb.png used on input line 487.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [18
 
 ]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 626.
+Package pdftex.def Info: mag.jpg used on input line 623.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
- <use upb.png>
-Package pdftex.def Info: upb.png used on input line 626.
+
+<use upb.png>
+Package pdftex.def Info: upb.png used on input line 623.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [19
 
 ]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 637.
+Package pdftex.def Info: mag.jpg used on input line 634.
+(pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
+File: upb.png Graphic file (type png)
+ <use upb.png>
+Package pdftex.def Info: upb.png used on input line 634.
+(pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
+ [20
+
+]
+File: mag.jpg Graphic file (type jpg)
+ <use mag.jpg>
+Package pdftex.def Info: mag.jpg used on input line 654.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
 
 <use upb.png>
-Package pdftex.def Info: upb.png used on input line 637.
+Package pdftex.def Info: upb.png used on input line 654.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
- [20
+ [21
 
 ]
 File: mag.jpg Graphic file (type jpg)
@@ -1265,42 +1272,30 @@ File: upb.png Graphic file (type png)
  <use upb.png>
 Package pdftex.def Info: upb.png used on input line 657.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
- [21
-
-]
-File: mag.jpg Graphic file (type jpg)
- <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 660.
-(pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
-File: upb.png Graphic file (type png)
-
-<use upb.png>
-Package pdftex.def Info: upb.png used on input line 660.
-(pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [22
 
 ]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 681.
+Package pdftex.def Info: mag.jpg used on input line 678.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
- <use upb.png>
-Package pdftex.def Info: upb.png used on input line 681.
+
+<use upb.png>
+Package pdftex.def Info: upb.png used on input line 678.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [23
 
  </usr/share/texlive/texmf-dist/tex/latex/beamer/art/beamericonarticle.pdf>]
 File: mag.jpg Graphic file (type jpg)
  <use mag.jpg>
-Package pdftex.def Info: mag.jpg used on input line 699.
+Package pdftex.def Info: mag.jpg used on input line 696.
 (pdftex.def)             Requested size: 56.9055pt x 19.74579pt.
 File: upb.png Graphic file (type png)
  <use upb.png>
-Package pdftex.def Info: upb.png used on input line 699.
+Package pdftex.def Info: upb.png used on input line 696.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
-
-[24
+ [24
 
 ]
 \tf@nav=\write6
@@ -1312,11 +1307,11 @@ Package pdftex.def Info: upb.png used on input line 699.
 \tf@snm=\write8
 \openout8 = `presentation_1.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 717.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 717.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 714.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 714.
  (./presentation_1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 717.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 717.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 714.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 714.
 Package rerunfilecheck Info: File `presentation_1.out' has not changed.
 (rerunfilecheck)             Checksum: 9E5AF4FA982257150DF21AF50F5FDA11;358.
 
@@ -1324,13 +1319,13 @@ Package rerunfilecheck Info: File `presentation_1.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 717.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 714.
  ) 
 Here is how much of TeX's memory you used:
- 19938 strings out of 494953
- 395506 string characters out of 6180977
- 454671 words of memory out of 5000000
- 22694 multiletter control sequences out of 15000+600000
+ 19936 strings out of 494953
+ 395473 string characters out of 6180977
+ 454717 words of memory out of 5000000
+ 22692 multiletter control sequences out of 15000+600000
  16730 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  49i,18n,60p,394b,935s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1354,7 +1349,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentation_1.pdf (24 pages, 849790 bytes).
+Output written on presentation_1.pdf (24 pages, 849833 bytes).
 PDF statistics:
  925 PDF objects out of 1000 (max. 8388607)
  798 compressed objects within 8 object streams
