@@ -3,8 +3,5 @@
 \beamer@sectionintoc {2}{Radio Resource Management}{5}{0}{2}
 \beamer@sectionintoc {3}{Constrained MPCs}{10}{0}{3}
 \beamer@sectionintoc {4}{Reinforcement Learning}{15}{0}{4}
-\beamer@sectionintoc {5}{Approximate asynchronous Value Iteration}{18}{0}{5}
-\beamer@sectionintoc {6}{Approximate asynchronous Policy Gradient Descent}{19}{0}{6}
-\beamer@sectionintoc {7}{Our contribution}{20}{0}{7}
-\beamer@sectionintoc {8}{Summary}{21}{0}{8}
-\beamer@sectionintoc {9}{Future Work}{22}{0}{9}
+\beamer@sectionintoc {5}{Summary}{21}{0}{5}
+\beamer@sectionintoc {6}{Future Work}{22}{0}{6}

@@ -89,15 +89,15 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[NICCI]{Network aware control and control aware network} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[NICCI]{NICCI: Network-Informed Control -- Control-Informed Network} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author[Shortname]{Full Name %\\ \&
+\author[Arun]{Arunselvan Ramaswamy %\\ \&
  } % Your name
 \institute[Paderborn University] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
 Dept. of Electrical Engineering and Information Technology, \\
 Paderborn University \\ % Your institution for the title page
-\textit{something@upb.de}\\
+\textit{arunselvan.ramaswamy@upb.de}\\
 %\vspace*{.1in}
 %Whose involved
 }
@@ -182,9 +182,9 @@ Paderborn University \\ % Your institution for the title page
 \section{Radio Resource Management}
 \begin{frame}
 \centerline{\textbf{Chapter I: Radio Resource Management (RRM)}}
-\begin{center}
- Prof. Holger Karl
-\end{center}
+% \begin{center}
+%  Prof. Holger Karl
+% \end{center}
 
 \end{frame}
 \begin{frame}
@@ -265,11 +265,11 @@ Paderborn University \\ % Your institution for the title page
 \end{frame}
 \section{Constrained MPCs}
 \begin{frame}
-\centerline{\textbf{Chapter II: Constrained MPCs given a communication schedule}
+\centerline{\textbf{Chapter II: Constrained MPC for a given communication schedule}
 }
-\begin{center}
- Markus K\"{o}gel and Prof. Rolf Findeisen
-\end{center}
+% \begin{center}
+%  Markus K\"{o}gel and Prof. Rolf Findeisen
+% \end{center}
 \end{frame}
 \begin{frame}
  \frametitle{MPC under reliable communication schedule}
@@ -280,7 +280,7 @@ Paderborn University \\ % Your institution for the title page
 % \label{fig1}
 \end{figure}
  \begin{itemize}
-  \item Dynamics: (i) Unknown but bounded uncertainties (ii) Discrete time linear systems (iii) noisy measurements.
+  \item Dynamics: (i) Unknown but bounded uncertainties (ii) Discrete-time linear systems (iii) noisy measurements.
   \item Communications networks: (i) Reliable (ii) Single link available: either \textbf{to actuator} \textit{or}
   \textbf{from sensor}.
   \item Challenge: When/what/where to send/receive to maximize control performance.
@@ -299,11 +299,11 @@ Paderborn University \\ % Your institution for the title page
 \begin{itemize}
  \item What to communicate (how much data):
  \begin{itemize}
-  \item \textbf{Naive solution:} Sensors send $y_k$ while controllers send $u_k$.
+  \item \textbf{Naive approach:} Sensors send $y_k$ while controllers send $u_k$.
   \item[] If no data is received at time $k$, then the actuators use $u_k = 0$ or $u_k = u_{k-1}$.
  \end{itemize}
   \begin{itemize}
-   \item \textbf{General Case:} Multiple measurements/ commands in each packet
+   \item \textbf{General Case:} Multiple measurements/commands in each packet
    \item[] (a) Piggy back old measurements, e.g., send $y_k$ and $y_{k-1}$ at $k$.
    \item[] (b) Send input sequences, e.g., send $u_{k}$ and $u_{k+1}$ at $k$.
   \end{itemize}
@@ -343,7 +343,7 @@ Paderborn University \\ % Your institution for the title page
 \begin{itemize}
  \item Automated optimal controller design for a given communication schedule.
  \item Allows for comparison between different communication schedules.
- \item Guarantees on closed loop behavior (constraint satisfaction, robust stability).
+ \item Guarantees on closed-loop behavior (constraint satisfaction, robust stability).
  \item Computationally efficient.
 \end{itemize}
 
@@ -373,10 +373,10 @@ Paderborn University \\ % Your institution for the title page
 % \section{Getting back to distributed control of large-scale systems}
 \section{Reinforcement Learning}
 \begin{frame}
-\centerline{\textbf{Chapter III: Reinforcement Learning}}
-\begin{center}
- Arun Ramaswamy and Prof. Daniel E. Quevedo
-\end{center}
+\centerline{\textbf{Chapter III: Reinforcement learning approach}}
+% \begin{center}
+%  Arun Ramaswamy and Prof. Daniel E. Quevedo
+% \end{center}
 
 \end{frame}
 \begin{frame}
@@ -398,14 +398,14 @@ Paderborn University \\ % Your institution for the title page
 \end{frame}
 
 \begin{frame}
-  \frametitle{Motivation}
+  \frametitle{Motivation: Dynamic programming approach}
   \begin{itemize}
   \item {\color{blue} Develop and analyze approximate, asynchronous value iteration and 
   policy gradient algorithms}.
 %   \item Consider a re-engineering of Value Iteration and Policy Gradient Descent to solve our problems.
   \item Value iteration is given by $J_{n+1} = T J_n$, where
   $TJ(i) := \min \limits_{\pi} E_\pi \left[ g(i,\pi(i),j)+ J(j) \right]$ is the Bellman operator.
-  \item We mutate it's stochastic iterative counterpart:
+  \item We mutate its stochastic iterative counterpart:
    \[
     {\color{violet}J_{n+1} = J_{n} + a(n) \left( TJ_n - J_n + M_{n+1}\right).}
    \]
@@ -414,7 +414,7 @@ Paderborn University \\ % Your institution for the title page
    {\color{violet}\theta_{n+1} = \theta_n  - a(n) \left[ \nabla_\theta \pi(\theta) + M_{n+1} \right].}
    \]
    \item {\color{blue}Summary}: Re-engineer for large-scale distributed asynchronous systems
-   with lossy delay prone communication systems.
+   with lossy, delay-prone communication systems.
   \end{itemize}
  \end{frame}
 % \begin{frame}
@@ -437,7 +437,7 @@ Paderborn University \\ % Your institution for the title page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Approximate asynchronous Value Iteration}
+% \section{Approximate asynchronous Value Iteration}
 \begin{frame}
  \frametitle{Approximate asynchronous Value Iteration}
  \begin{block}{Re-engineered value iteration algorithm} {\footnotesize
@@ -448,7 +448,7 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 \begin{itemize}
 \item $\nu(i,n)$ is the number of times that agent $i$ was active till time $n$.
  \item $Y_n \subseteq \{1, \ldots, d\}$ denotes the active agents at time $n$.
- \item $0 \le \tau_{ij}(n) \le n$. Delay faced by {\color{blue}agent j} in receiving information from 
+ \item $0 \le \tau_{ij}(n) \le n$. Delay faced by {\color{blue}agent j}, at time $n$, in receiving information from 
  {\color{blue}agent i}.
  \item $\mathcal{A}$ is the approximation operator {\color{orange} 
  (obtained as a consequence of a supervised learning algorithm)}.
@@ -473,9 +473,9 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 % \item Will affect the ``$Y_n$-process'' and the time delays $\tau_{ij}(n)$. 
 % \end{itemize}
 % \end{frame}
-\section{Approximate asynchronous Policy Gradient Descent}
+% \section{Approximate asynchronous Policy Gradient Descent (AAPGD)}
 \begin{frame}
- \frametitle{Approximate asynchronous Policy Gradient Descent}
+ \frametitle{Approximate asynchronous Policy Gradient Descent (AAPGD)}
  \begin{itemize}
   \item Basic idea of PGD is the existence of a parameterization $\pi(\theta)$ 
   {\color{purple}(policy objective function)}, Sutton et. al. \cite{p9}. 
@@ -494,7 +494,7 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
    (simultaneous perturbations stochastic approximations).
    \item In the above equation, we may replace the {\color{purple}gradient terms} with {\color{purple} sub-gradients}, 
    our analysis still carries through, verbatim.
-    \item {\color{purple}While AAVI is offline, AAPGD is online}.
+    \item {\color{purple}While approximate asynchronous value iteration is offline, AAPGD is online}.
   \end{itemize}
 \end{frame}
 % \begin{frame}
@@ -611,7 +611,7 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Our contribution}
+% \section{Our contribution}
 \begin{frame}
  \frametitle{Our contribution}
  \begin{itemize}
@@ -645,17 +645,23 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 \begin{frame}
  \frametitle{Current and Future Work}
  \begin{itemize}
-  \item RRM-side: Use Markovian rewards (previously studied) to develop multi-arm bandit based
+  \item RRM-side: 
+  \begin{itemize}
+   \item Use Markovian rewards (previously studied) to develop multi-arm bandit based
 	algorithms.
-  \item RRM-side: For more general rewards we are currently looking at deep 
+  \item For more general rewards we are currently looking at deep 
   reinforcement learning algorithms.
-  \item Controller side: Value iteration networks and deep Q networks in the setting of distributed 
+  \end{itemize}
+  \item Controller-side: Value iteration networks and deep Q networks in the setting of distributed 
   systems with lossy delayed communications.
   \item Experimental aspects of the project: Run an intelligent RRM and model-free controller in tandem.
   \item Final goal: The RRM learns the optimal scheduling taking into account the control issues. 
   The controller is distributed and
   accounts for dynamic resource availabilities. {\color{purple} ONLINE!!}
   \end{itemize}
+\end{frame}
+\begin{frame}
+\Huge{\centerline{The End}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -710,9 +716,6 @@ nonlinear systems. NOLCOS.
 % }
 % \end{frame}
 %------------------------------------------------
-\begin{frame}
-\Huge{\centerline{The End}}
-\end{frame}
 
 %----------------------------------------------------------------------------------------
 
