@@ -1,0 +1,23 @@
+TITLE: STOCHASTIC RECURSIVE INCLUSIONS: THEORY AND APPLICATIONS
+
+Stochastic approximation algorithms encompass a class of iterative schemes that converge to a sought value
+through a series of successive approximations, even with erroneous observations.
+Such algorithms naturally arise in reinforcement learning, game theory, optimization, financial mathematics and cyber-physical systems.
+The first stochastic approximation algorithm was developed by Robbins and Monro in 1951 to solve the root-finding problem. In 1977 Ljung
+showed that the asymptotic behavior of a stochastic approximation algorithm can be studied by associating
+a deterministic ODE, called the associated ODE, and studying it's asymptotic behavior instead.
+In 1996 Benaim and Benaim and Hirsch used the dynamical systems approach to develop 
+a framework to analyze generalized stochastic approximation algorithms. One bottleneck in deploying this framework was the requirement on stability (almost sure boundedness) of the iterates. In 1999 Borkar and Meyn developed a unified set of assumptions that guaranteed both stability and convergence of stochastic approximations. However, the aforementioned frameworks did not account
+for scenarios with set-valued mean fields. In 2005 Benaim, Hofbauer and Sorin showed that the dynamical systems approach to stochastic approximations can be extended to scenarios with set-valued mean-fields. Again, stability of the iterates was assumed.
+
+The main focus of this talk will be on stochastic approximation methods with set-valued dynamical systems (stochastic recursive inclusions), with applications to reinforcement learning and optimization. In the first part of this talk we will discuss an extension of the Borkar-Meyn theorem to the scenario of stochastic recursive inclusions. As an application of this framework we will discuss a solution
+to the `approximate drift problem'. In the second part of this talk we will discuss the problem of gradient methods with errors.
+We will discuss a framework for the stability and convergence of gradient methods, even when the errors are `non-diminishing'.
+Our work extends the results of Bertsekas and Tsitsiklis, and Mangasarian and Solodov. Using our framework,
+we present a fast and hassle-free implementation of Simultaneous Perturbation Stochastic Approximation (SPSA), using
+constant sensitivity parameters. It is worth noting that our implementation `decouples' the sensitivity parameters and step-sizes.
+We will also present experimental results in support of our theory. In the third part of this talk, we will discuss stochastic
+recursive inclusions with two-timescales. We use our framework to develop a two timescale algorithm to solve the constrained Lagrangian
+dual optimization problem. Due to the generality of our framework, the class of objective and constraint functions is enlarged, when
+compared to previous literature. In the final part of this talk, we will discuss a framework for stability and convergence of stochastic approximations with ‘controlled Markov processes’. Using this framework we present a relaxation of the assumptions for the analysis of temporal difference learning algorithms (an important policy evaluation scheme in reinforcement learning). It may be noted that our assumptions for stability (of temporal difference learning) are compatible with hitherto present frameworks. Further it may be noted that the conditions are weakened two-fold: (a) the Markov process is no longer required to evolve in a finite state space and (b) the state process is not required to be ergodic under a given stationary policy.
+
