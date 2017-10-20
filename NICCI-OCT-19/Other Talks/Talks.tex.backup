@@ -1,0 +1,1493 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage{mathtools}
+\usepackage[mathscr]{euscript}
+% \usepackage{calligra}
+%  \usepackage[T1]{fontenc}
+\bibliographystyle{plain}
+\usepackage{cite}
+\usepackage{amssymb}
+%\usepackage{upgreek}
+\usepackage{hyperref}
+%\usepackage{graphicx}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newcommand{\pro}{\text{{\LARGE $\sqcap$}}}
+% \newcommand{\dee}{{\fontencoding{T1}\fontfamily{calligra}\selectfont d}}
+\newtheorem{remark}{Remark}
+%opening
+\title{Conditions for Stability and Convergence of Set-Valued Stochastic Approximations: 
+Applications to Approximate Value and Fixed point Iterations with Noise}
+\author{Arunselvan Ramaswamy
+\thanks{email:\texttt{arunselvan.ramaswamy@upb.de}}} 
+\affil{Dept. of Electrical Engineering and Information Technology\\
+Paderborn University \\
+Paderborn - 33908, Germany.}
+
+\author{Shalabh Bhatnagar
+\thanks{email:\texttt{shalabh@iisc.ac.in}}}
+\affil{Dept. of Computer Science and Automation \\
+Indian Institute of Science\\
+Bengaluru - 560012, India.
+}
+\begin{document}
+\maketitle
+\begin{abstract}
+The study of stochastic approximation algorithms (SAAs) with set-valued mean-fields has been popular during recent times
+due to their applications to many large scale model-free problems arising in stochastic optimization and control.
+The analysis of such algorithms requires the almost sure boundedness of the iterates, which can be hard to verify.
+In this paper we extend the ideas of Abounadi, Bertsekas and Borkar
+involving regular SAAs (with point-to-point maps),
+to develop easily verifiable
+sufficient conditions, based on Lyapunov functions, 
+for both stability and convergence of SAAs with set-valued mean-fields.
+As an important application of our results, we analyze the stochastic approximation counterpart of 
+approximate value iteration (AVI), an important dynamic programming method 
+designed to tackle Bellman's curse of 
+dimensionality. Our framework significantly
+relaxes the assumptions involved in the analysis of AVI methods. Further, our analysis covers both
+stochastic shortest path and infinite horizon discounted cost problems. Generalizing further, 
+we present an SAA, together with an analysis of it's stability and convergence 
+for finding fixed points of contractive set-valued maps. To the best
+of our knowledge ours is the first SAA for finding fixed points of set-valued maps.
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} \label{sec_intro}
+Stochastic approximation algorithms (SAAs) are an important class of iterative schemes that are used to 
+solve
+problems arising in stochastic optimization, stochastic control, machine learning and 
+financial mathematics, among others.
+SAAs constitute a powerful tool, due to their model free approach, to solving problems.
+The first stochastic
+approximation algorithm was developed by Robbins and Monro \cite{robbins} in 1951 to solve the 
+root finding problem. 
+Important contributions to modern stochastic approximations
+theory were made by Bena{\"i}m (1996) \cite{Benaim96}, Bena{\"i}m and 
+Hirsch (1996) \cite{BenaimHirsch}, Borkar (1997) \cite{Borkartt},
+Borkar and Meyn (1999) \cite{Borkar99} and Bena{\"i}m, Hofbauer and Sorin (2005)\cite{Benaim05}, to name
+a few.
+\paragraph{}
+An important aspect of the analysis of SAAs lies in verifying the
+almost sure boundedness (stability) of the iterates. This can be hard in many applications.
+In this paper we present easily verifiable sufficient conditions for both stability and
+convergence of SAAs with set-valued mean-fields. Specifically, we consider the following iterative scheme:
+\begin{equation}
+ \label{si_sri}
+ x_{n+1} = x_n + a(n) \left( y_n + M_{n+1} \right),
+\end{equation}
+where $x_{n} \in \mathbb{R}^d$ for all $n$; $\{a(n)\}_{n \ge 0}$ is a step-size sequence; 
+$y_n \in H(x_n)$ for all $n$ such that
+$H: \mathbb{R}^d \to \{\text{subsets of }\mathbb{R}^d \}$ is a Marchaud map; and $\{M_{n+1}\}_{n \ge 0}$
+is the noise sequence.
+ \textit{We present three 
+different yet overlapping sets of (easily verifiable)
+conditions for stability (almost sure boundedness) and convergence
+(to a closed connected internally chain transitive invariant set of $\dot{x}(t) \in H(x(t))$)
+of (\ref{si_sri}).
+}
+The reader is referred to Section~\ref{sec_analysis} for the analysis.
+\paragraph{}
+The problem of stability for SAAs with
+set-valued mean-fields has been previously studied by Ramaswamy and Bhatnagar \cite{ramaswamy}. 
+They developed the first set of sufficient conditions for the stability and convergence of (\ref{si_sri}) by extending
+the ideas of Borkar and Meyn \cite{Borkar99}. Their sufficient conditions
+are based on the ``limiting properties'' of an \textit{associated scaled differential inclusion}. 
+On the contrary, the conditions presented in this paper are based on ``local properties'' of the 
+\textit{associated differential inclusion}. 
+We believe that the stability criterion presented here is
+applicable to scenarios that are in some sense ``orthogonal'' 
+to those that readily use the stability criterion
+of \cite{ramaswamy}. Our work contributes to the literature of SAAs with set-valued mean-fields by
+presenting the only sets of sufficient conditions for stability and convergence of (\ref{si_sri}),
+after the ones presented by us in \cite{ramaswamy}.
+\paragraph{}
+In this paper, we extend the Lyapunov function based stability approach of Abounadi, Bertsekas and Borkar \cite{abounadi}
+developed originally for the case of SAAs involving point-to-point maps,
+to include SAAs with set-valued mean-fields. Our stability criterion is
+dependent in part on the possibility of comparing various instances of an algorithm being analyzed.
+For the exact nature of this comparison, the reader is referred to assumption $(A5)$ of Section~\ref{sec_sa}. 
+As stated earlier,
+we present three sets of assumptions that are qualitatively different yet overlapping, for stability and
+convergence.
+As a consequence, the framework developed herein is semantically rich enough to cover a multitude of scenarios encountered in reinforcement learning, 
+stochastic optimization and other applications.
+\paragraph{}
+We answer the following important question: Does the mere existence of a Lyapunov function
+for $\dot{x}(t) \in H(x(t))$ imply the almost sure boundedness (stability) of (\ref{si_sri})? We will show that
+the existence of a global/local Lyapunov function allows us to construct an ``inward directing set'',
+see Proposition \ref{sa_inward} for details. We then use this inward directing set to develop
+a partner projective scheme (to (\ref{si_sri})). This scheme is shown to converge to a point inside
+the previously constructed inward directing set. In order to show the stability of (\ref{si_sri}), 
+we compare the same
+to the aforementioned partner projective scheme. The exact nature of this comparison is outlined in $(A5)$. It is
+imperative that (\ref{si_sri}) and it's partner projective scheme are comparable. In other words, it seems
+that the mere existence of a Lyapunov function is \textit{insufficient} to ensure stability.
+Additional assumptions such as $(A5)$ of Section~\ref{sec_sa} are needed for this purpose. We
+demonstrate the verifiability of our assumptions by using our framework to comprehensively 
+analyze two important problems:
+(i) approximate value iteration methods with possibly biased approximation errors and
+(ii) SAAs for finding fixed points of contractive set-valued maps.
+\textit{It is worth noting that our analysis of approximate value iteration methods does not distinguish between
+biased and unbiased approximation errors.}
+\paragraph{}
+In Section~\ref{sec_avi}, as an application of our main results, we present a complete analysis of 
+approximate value iteration methods, an important class of dynamic programming algorithms,
+under significantly weaker set of assumptions.
+Value iteration
+is an important dynamic programming method used to numerically compute the optimal cost-to-go vector. 
+However,
+it is well known that for many important applications, it suffers from \textit{Bellman's curse of dimensionality}. 
+Approximate Value Iteration (AVI) methods endeavor to address Bellman's curse of dimensionality by
+introducing an \textit{approximation operator} that allows for approximations at every step of the
+classical value iteration method.
+If the approximation errors are allowed to be unbounded
+ then the algorithm may not converge, see \cite{BertsekasBook} for details. 
+ AVIs with bounded approximation errors have been previously studied in
+ \cite{BertsekasBook, vroy, munos}. 
+ Bertsekas and Tsitsiklis \cite{BertsekasBook} studied scenarios wherein the approximation errors are
+ uniformly bounded over all states.
+ Munos \cite{munos} extended the analysis of \cite{BertsekasBook}, allowing for approximation errors
+ that are bounded in the weighted p-norm sense, for the infinite horizon discounted cost problem.
+ However this convergence analysis requires
+ that the transition probabilities or future state distributions
+ be ``smooth'', see \cite{munos} for details.
+ For a detailed comparison of our results concerning AVI methods to those already present in literature, see
+ Section~\ref{avi_munos}.
+ \paragraph{}
+ An important contribution of this paper is in providing a convergence analysis of AVIs without
+ the aforementioned restriction on transition probabilities or future distributions 
+ (cf.~\ref{sec_avi}). Our analysis encompasses both the 
+ stochastic shortest path and the discounted cost infinite horizon problems.
+When analyzing stochastic iterative AVIs (see (\ref{avi_avi}) 
+ in Section~\ref{sec_avi} for details on stocastic iterative AVIs), stability 
+ (almost sure boundedness) of the iterates is normally assumed to hold. As stated before, stability is 
+ a hard assumption
+ to verify. 
+ Further, it is unclear if the introduction of an 
+ \textit{approximation operator} leads to unstable iterates.
+ Another important contribution
+ of this paper is in showing stability of stochastic iterative AVIs, 
+ under weak, verifiable conditions. In Section~\ref{sec_avi}, it is shown that a 
+ stochastic iterative AVI converges to a \textit{possibly} suboptimal cost-to-go vector $J_\infty$
+ which belongs to a ``small neighborhood'' of the optimal vector, $J^*$. 
+ Further it is shown that the size of this neighborhood is directly proportional to the
+ magnitude of the approximating errors, see Theorems~\ref{avi_main} and \ref{avi_main1} for details.
+ 
+ \textit{Thus, in Section~\ref{sec_avi} we provide a complete analysis (stability and convergence) of 
+ general AVI methods under weak albeit easily verifiable set of sufficient conditions. We eliminate
+ all previous restrictions on the ``smoothness'' of transition probabilities and future distributions.
+ We also allow for more general ``operational noise'' as compared to previous literature.
+ An important aspect of our analysis is that it encompasses both stochastic shortest path and
+ infinite horizon discounted cost problems.
+ We provide a unified analysis for stability and convergence of AVI methods wherein the 
+ approximation errors are bounded with respect to multiple norms.}
+ \paragraph{}
+ In Section~\ref{sec_fp}, as yet another application of our framework, we develop and analyze,
+ for the first time, general SAAs for finding fixed points of set-valued maps.
+ Fixed point theory is an active area of research due to
+ its applications in a multitude of areas. Our contribution on this front is in
+ \textit{analyzing stochastic approximation algorithms for finding fixed points of contractive set-valued maps
+ }, see Section~\ref{sec_fp} for details. As
+ mentioned before, we show that such algorithms are bounded almost surely and that they converge to a 
+ sample path dependent fixed point of the set-valued map under consideration.
+ \textit{To the best of our knowledge
+ours is the first SAA for finding fixed points of set-valued maps}.
+ \subsection{Organization of this paper} 
+ In Section~\ref{sec_def} we list the definitions and notations
+ used in this paper. In Section~\ref{sec_sa} we present three sets of sufficient conditions
+ for stability and convergence (to a closed connected internally chain transitive invariant set of
+ the associated DI) of SAAs with set-valued mean-fields.
+ Through Sections~\ref{sec_analysis}, \ref{sec_sc} and \ref{sec_gn} we present our main results,
+ Theorems~\ref{sc_main} and \ref{gn_main}. In Section~\ref{sec_avi}
+ we analyze stochastic iterative AVI methods, see Theorem~\ref{avi_main} and \ref{avi_main1}. 
+ In Section~\ref{sec_fp} we develop and
+ analyze a SAA for finding fixed points of contractive set-valued maps, see Theorem~\ref{fp_main}.
+ A detailed discussion on assumption $(A5)$, which is crucial to our analysis, is provided in
+ Section~\ref{sec_note}. Finally Section~\ref{sec_conclusions} provides the concluding remarks.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Definitions and Notations} \label{sec_def}
+The definitions and notations encountered in this paper are listed in this section.
+{\renewcommand\labelitemi{}
+\begin{itemize}
+ \item \textbf{\textbf{[Upper-semicontinuous map]}} We say that $H$ is upper-semicontinuous,
+  if given sequences $\{ x_{n} \}_{n \ge 1}$ (in $\mathbb{R}^{n}$) and 
+  $\{ y_{n} \}_{n \ge 1}$ (in $\mathbb{R}^{m}$)  with
+  $x_{n} \to x$, $y_{n} \to y$ and $y_{n} \in H(x_{n})$, $n \ge 1$, 
+  then $y \in H(x)$.
+\item
+\textbf{\textbf{[Marchaud Map]}} A set-valued map $H: \mathbb{R}^n \to \{subsets\ of\ \mathbb{R}^m$\} 
+is called \textit{Marchaud} if it satisfies
+the following properties:
+ \textbf{(i)} for each $x$ $\in \mathbb{R}^{n}$, $H(x)$ is convex and compact;
+ \textbf{(ii)} \textit{(point-wise boundedness)} for each $x \in \mathbb{R}^{n}$,  
+ $\underset{w \in H(x)}{\sup}$ $\lVert w \rVert$
+ $< K \left( 1 + \lVert x \rVert \right)$ for some $K > 0$;
+ \textbf{(iii)} $H$ is \textit{upper-semicontinuous}. \\
+Let $H$ be a Marchaud map on $\mathbb{R}^d$.
+The differential inclusion (DI) given by
+\begin{equation} \label{di}
+\dot{x} \ \in \ H(x)
+\end{equation}
+is guaranteed to have at least one solution that is absolutely continuous. 
+The reader is referred to \cite{Aubin} for more details.
+We say that $\textbf{x} \in \sum$ if $\textbf{x}$ 
+is an absolutely continuous map that satisfies (\ref{di}).
+The \textit{set-valued semiflow}
+$\Phi$ associated with (\ref{di}) is defined on $[0, + \infty) \times \mathbb{R}^d$ as: \\
+$\Phi_t(x) = \{\textbf{x}(t) \ | \ \textbf{x} \in \sum , \textbf{x}(0) = x \}$. Let
+$B \times M \subset [0, + \infty) \times \mathbb{R}^d$ and define
+\begin{equation}\nonumber
+ \Phi_B(M) = \underset{t\in B,\ x \in M}{\bigcup} \Phi_t (x).
+\end{equation}
+% \item
+% \textit{\textbf{[$\omega$-limit set]}}
+% Given $M \subseteq \mathbb{R}^d$, the $\omega$-limit \textit{set} is defined as
+% $
+%  \omega_{\Phi}(M) = \bigcap_{t \ge 0} \ \overline{\Phi_{[t, +\infty)}(M)}.
+% $
+\item \textbf{\textbf{[Limit set of a solution \& $\omega$-limit-set]}} The limit set of a solution $\textbf{x}$
+with $\textbf{x}(0) = x$ is given by
+$L(x) = \bigcap_{t \ge 0} \ \overline{\textbf{x}([t, +\infty))}$.
+Let $M \subseteq \mathbb{R}^d$, the $\omega$-limit-set be defined by
+$
+ \omega_{\Phi}(M) = \bigcap_{t \ge 0} \ \overline{\Phi_{[t, +\infty)}(M)}.
+$
+Similarly the \textit{limit set} of a solution $\textbf{x}$ is given by
+$L(x) = \bigcap_{t \ge 0} \ \overline{\textbf{x}([t, +\infty))}$.
+\item \textbf{\textbf{[Invariant set]}}
+$M \subseteq \mathbb{R}^d$ is \textit{invariant} if for every $x \in M$ there exists 
+a trajectory, $\textbf{x} \in \sum$, entirely in $M$
+with $\textbf{x}(0) = x$, $\textbf{x}(t) \in M$,
+for all $t \ge 0$. Note that the definition of invariant set used in this paper, is the same as
+that of positive invariant set in \cite{Benaim05} and \cite{BorkarBook}.
+\item \textbf{\textbf{[Open and closed neighborhoods of a set]}}
+Let $x \in \mathbb{R}^d$ and $A \subseteq \mathbb{R}^d$, then
+$d(x, A) : = \inf \{\lVert a- y \rVert \ | \ y \in A\}$. We define the $\delta$-\textit{open neighborhood}
+of $A$ by $N^\delta (A) := \{x \ |\ d(x,A) < \delta \}$. The 
+$\delta$-\textit{closed neighborhood} of $A$ 
+is defined by $\overline{N^\delta} (A) := \{x \ |\ d(x,A) \le \delta \}$.
+The open ball of radius $r$ around the origin is represented by $B_r(0)$,
+while the closed ball is represented by $\overline{B}_r(0)$.
+\item \textbf{\textbf{[Internally chain transitive set]}}
+$M \subset \mathbb{R}^{d}$ is said to be
+internally chain transitive if $M$ is compact and for every $x, y \in M$,
+$\epsilon >0$ and $T > 0$ we have the following: There exists $n$ and $\Phi^{1}, \ldots, \Phi^{n}$ that
+are $n$ solutions to the differential inclusion $\dot{x}(t) \in H(x(t))$,
+points $x_1(=x), \ldots, x_{n+1} (=y) \in M$
+and $n$ real numbers 
+$t_{1}, t_{2}, \ldots, t_{n}$ greater than $T$ such that: $\Phi^i_{t_{i}}(x_i) \in N^\epsilon(x_{i+1})$ and
+$\Phi^{i}_{[0, t_{i}]}(x_i) \subset M$ for $1 \le i \le n$. The sequence $(x_{1}(=x), \ldots, x_{n+1}(=y))$
+is called an $(\epsilon, T)$ chain in $M$ from $x$ to $y$.
+% \item \textbf{\textbf{[Chain recurrent set]}} A set is chain recurrent if the above internally chain transitive property holds 
+% for all $x,\ y$ such that $x=y$.
+\item \textbf{\textbf{[Attracting set \& fundamental neighborhood]}}
+$A \subseteq \mathbb{R}^d$ is \textit{attracting} if it is compact
+and there exists a neighborhood $U$ such that for any $\epsilon > 0$,
+$\exists \ T(\epsilon) \ge 0$ with $\Phi_{[T(\epsilon), +\infty)}(U) \subset
+N^{\epsilon}(A)$. Such a $U$ is called the \textit{fundamental neighborhood} of $A$. 
+In addition to being compact if the \textit{attracting set} is also invariant then
+it is called an \textit{attractor}.
+The \textit{basin
+of attraction } of $A$ is given by $B(A) = \{x \ | \ \omega_\Phi(x) \subset A\}$.
+\item \textbf{\textbf{[Lyapunov stable]}} The above set $A$ is Lyapunov stable 
+if for all $\delta > 0$, $\exists \ \epsilon > 0$ such that
+$\Phi_{[0, +\infty)}(N^\epsilon(A)) \subseteq N^\delta(A)$.
+% \item \textit{\textbf{[Upper-limit of a sequence of sets, Limsup]}}
+% Let $\{K_{n}\}_{n \ge 1}$ be a sequence of sets in $\mathbb{R}^{d}$. 
+% The \textit{upper-limit} of $\{K_{n}\}_{n \ge 1}$ is
+% given by, 
+% $Limsup_{n \to \infty} K_n$ $:= \ \{y \ | \ 
+% \underset{n \to \infty}{\underline{lim}}d(y, K_n)= 0 \}$. \item
+% \textit{\textbf{[Lower-limit of a sequence of sets, Liminf]}}
+% Let $\{K_{n}\}_{n \ge 1}$ be a sequence of sets in $\mathbb{R}^{d}$. 
+% The \textit{lower-limit} of $\{K_{n}\}_{n \ge 1}$ is
+% given by, 
+% $Liminf_{n \to \infty} K_{n}$ $:=$ $\{x \ |\ 
+%  \underset{n \to \infty}{\lim} d(x, K_{n}) = 0 \}$.
+% We may interpret that the lower-limit collects the limit points of  
+% $\{K_n\}_{n \ge 1}$ while the upper-limit
+% collects its accumulation points.
+\end{itemize}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Assumptions} \label{sec_sa}
+Consider the following iteration in $\mathbb{R}^d$:
+\begin{equation} \label{sa_sri}
+x_{n+1} = x_n + a(n) \left[ y_n + M_{n+1} \right],
+\end{equation}
+where $y_n \in H(x_n)$ for all $n \ge 0$ with $H: \mathbb{R}^d \to \{\text{subsets of }\mathbb{R}^d\}$,
+$\{a(n)\}_{n \ge 0}$ is the given step-size sequence and $\{ M_{n+1}\}_{n \ge 0}$ is the given noise sequence.
+\paragraph{}
+We make the following assumptions \footnote{
+Note that assumption $(A4a)$ presents a set of Lyapunov conditions on the associated DI. Two
+more sets of alternative conditions, \textit{viz.,} $(A4b)$ and $(A4c)$ will also be presented
+subsequently in this section.
+}:
+\begin{itemize}
+\item[$(A1)$] $H: \mathbb{R}^d \to \{\text{subsets of }\mathbb{R}^d\}$ is a Marchaud map. For all $x \in \mathbb{R}^d$ $\underset{z \in H(x)}{\sup} \lVert z \rVert \le K(1 + \lVert x \rVert)$, where $K > 0$ is the given Marchaud constant.
+\item[$(A2)$] The step-size sequence $\{a(n)\}_{n \ge 0}$ is such that $\forall n \ a(n) \ge 0$, $\sum_{n \ge 0} a(n) = \infty$ and $\sum_{n \ge 0} a(n)^2 < \infty$.
+\item[$(A3)$] \begin{itemize}
+			\item[(i)] For all $n \ge 0$ $\lVert M_{n+1} \rVert \le D$, where $D >0$ is some constant.
+			\item[(ii)] $\underset{k \to \infty}{\lim}\sum\limits_{n=k}^{m_T(k)} a(n) 
+			M_{n+1} =  0$ for all $T$, where $m_T(k) := \min \left\{ m \ge k \mid \sum_{n=k}^m a(n) \ge T \right\}$.
+			\end{itemize}
+\item[$(A4a)$] Associated with the differential inclusion (DI) $\dot{x}(t) \in H(x(t))$ 
+is a compact set $\Lambda$, a bounded open neighborhood $\mathcal{U}$ 
+$\left( \Lambda \subseteq \mathcal{U}\subseteq \mathbb{R}^d \right)$ and a
+function $V: \overline{\mathcal{U}} \to \mathbb{R}^+$ such that
+	\begin{itemize}
+	\item[$(i)$] $\forall t \ge 0$ $\Phi_t (\mathcal{U}) \subseteq \mathcal{U}$ \textit{i.e.,} $\mathcal{U}$ is strongly positively invariant.
+	\item[$(ii)$] $V^{-1} (0) = \Lambda$.
+	\item[$(iii)$] $V$ is a continuous function such that for all
+	$x \in \mathcal{U} \setminus \Lambda$ and $y \in \Phi_t (x)$ we have $V(x) > V(y)$, for any $t > 0$.
+	\end{itemize}
+	\item[(A5)] Let $\{x_n\}_{n \ge 0}$ and $\{\hat{x}_n \}_{n \ge 0}$ be two sequences generated 
+	by (\ref{sa_sri}) on a common probability space with the same noise sequence $\{M_{n+1}\}_{n \ge 0}$.
+	Then $\underset{n}{\sup} \ \lVert x_n - \hat{x}_n \rVert < \infty$ a.s.
+\end{itemize}
+\textit{Note that it follows from \textit{Proposition 3.25} of Bena\"{i}m, Hofbauer and Sorin \cite{Benaim05} that $\Lambda$ contains a Lyapunov stable attracting set. Further there exists an attractor contained in $\Lambda$ whose basin
+of attraction contains $\mathcal{U}$, with $V^{-1} ([0, r))$ as fundamental neighborhoods for small values of $r$}.
+
+Note that assumptions on the noise, $(A3)$, will be weakened to include general noise sequences later,
+see Section~\ref{sec_gn}. Also, $(A5)$ is similar to an assumption used by Abounadi et. al. \cite{abounadi}
+in the case of regular SAAs (with point-to-point maps). The reader is referred to Section~\ref{sec_note}
+for more detailed discussions on this assumption.
+\paragraph{}
+We define open sets $\mathcal{B}_a$ and $\mathcal{C}_a$ such that the following conditions are satisfied: (a)$\Lambda \subseteq \overline{\mathcal{B}_a} \subseteq \mathcal{C}_a$ (b) $\overline{\mathcal{C}_a} \subseteq \mathcal{U}$
+and (c) $\mathcal{C}_a$ is a fundamental neighborhood of the attractor contained in $\Lambda$. 
+Since $V$ is continuous, it follows that $\mathcal{V}_r := \{ x \mid V(x) < r \}$ is open relative to $\overline{\mathcal{U}}$, for all $r > 0$. 
+Further, assumption $(A4a)(ii)$ implies that $\underset{r > 0}{\bigcap} \mathcal{V}_r = \Lambda$ and
+that $\mathcal{V}_r \subset \mathcal{U}$ for small values of $r$. It may be noted that the closure of $\mathcal{V}_r$ is $\overline{\mathcal{V}_r} := \{ x \mid V(x) \le r \}$.
+Let $\mathcal{B}_a := \mathcal{V}_{R_b}$ and $\mathcal{C}_a : = \mathcal{V}_{R_c}$, where $0<R_b < R_c$. Here 
+$R_c$ is chosen small enough to ensure that $\overline{\mathcal{V}_{R_c}} \subseteq \mathcal{U}$ and the above conditions (b) and (c) hold.
+Note that condition (a) is automatically satisfied since $R_b < R_c$. 
+% Finally, since $\mathcal{B} \subset \mathcal{C} \subset \mathcal{U}$, sets $\mathcal{B}_a$ and $\mathcal{C}_a$ are indeed open.
+\paragraph{}
+We now present an alternative to assumption $(A4a)$.
+\begin{itemize}
+\item[$(A4b)$] 
+Associated with $\dot{x}(t) \in H(x(t))$ is a compact set $\Lambda$, a bounded open neighborhood $\mathcal{U}$ and a
+function $V: \overline{\mathcal{U}} \to \mathbb{R}^+$ such that
+	\begin{itemize}
+	\item[(i)] $\forall t \ge 0$ $\Phi_t (\mathcal{U}) \subseteq \mathcal{U}$ \textit{i.e.,} $\mathcal{U}$ is strongly positively invariant.
+	\item[(ii)] $V^{-1} (0) = \Lambda$.
+	\item[(iii)] $V$ is an upper semicontinuous function such that for all $x \in \overline{\mathcal{U}} \setminus \Lambda$ and $y \in \Phi_t (x)$ we have $V(x) > V(y)$, where $t > 0$.
+	\item[(iv)] $V$ is bounded on $\overline{\mathcal{U}}$. In other words, $\underset{x \in \mathcal{U}}{\sup} \lVert V(x) \rVert < \infty$.
+	\end{itemize}
+\end{itemize}
+	The difference between statements $(A4a)(iii)$ and $(A4b)(iii)$ contributes to the qualitative difference between assumptions $(A4a)$ and $(A4b)$. It follows from \textit{Proposition 3.25} of Bena\"{i}m, Hofbauer and Sorin \cite{Benaim05} that  
+	$\Lambda$ contains an attractor set whose basin of attraction contains $\mathcal{U}$. As in the case of
+	$(A4a)$, we define open sets $\mathcal{B}_b$ and $\mathcal{C}_b$ satisfying the above
+	stated (a) and (b). But first,
+	we prove that sets of the form $\{x \mid V(x) < r\}$ are open relative to $\overline{\mathcal{U}}$, as expected.
+	\begin{proposition} \label{sa_isopen}
+	For any $r < \underset{u \in \mathcal{U}}{\sup} V(u)$, the set $\mathcal{V}_r = \{x \mid V(x) < r\}$ is open relative to $\overline{\mathcal{U}}$. 
+	Further, $\overline{\mathcal{V}_r} = \{x \mid V(x) \le r\}$.
+	\end{proposition}
+	\begin{proof}
+	Suppose $\mathcal{V}_r$ is not open relative to $\overline{\mathcal{U}}$, 
+	then there exists $\{x_n\}_{n \ge 0}$ such that $x_n \to x$, as $n \to \infty$, 
+	with $x_n \in \overline{\mathcal{U}} \setminus \mathcal{V}_r$ for every $n$
+	and $x \in \mathcal{V}_r$. It follows from the boundedness
+	of $V$, \textit{i.e.,} (A4b)(iv) that there exists $\{m(n)\}_{n \ge 0} \subseteq \{n \ge 0\}$ such that $V(x_{m(n)}) \to v$ as $m(n) \to \infty$ for some $v \in \mathbb{R}^+$. Since $x_{m(n)} \to x$, it follows from the upper
+	semicontinuity of $V$ that $v = V(x)$. Since $v < r$ and 
+	$\underset{m(n)}{\inf} V(x_{m(n)}) \ge r$, we get a contradiction.
+	\paragraph{}
+	To prove the second part of the proposition, it is enough to show that $V(x) = r$ for 
+	every $x \in \partial \mathcal{V}_r$. 
+	Since $\mathcal{V}_r$ is open relative to $\overline{\mathcal{U}}$ and 
+	$x \in \partial \mathcal{V}_r$, we have $V(x) \ge r$. It is
+	left to show that $V(x) \le r$. Since $x \in \partial \mathcal{V}_r$, there exists $x_n \in \mathcal{V}_r$ such that $x_n \to x$. It follows from the upper semicontinuity and the boundedness of $V$ that 
+	$V(x) \le \underset{n \to \infty}{\limsup} \ V(x_n) \le r$.
+	\end{proof}
+	As in the case of $(A4a)$, we have $\Lambda = \underset{r > 0}{\bigcap} \mathcal{V}_r$ and  
+	$\mathcal{V}_r \subset \mathcal{U}$ for small values of $r$. 
+	We are now ready to define $\mathcal{B}_b$ and $\mathcal{C}_b$.
+	Define $\mathcal{C}_b := \mathcal{V}_r$ such that $\overline{\mathcal{V}_r} \subset \mathcal{U}$, possible for small values of $r$. Further, choose $\mathcal{B}_b$ such
+	that $\mathcal{B}_b$ is open and $\Lambda \subset \mathcal{B}_b \subset \overline{\mathcal{B}_b} \subset \mathcal{C}_b$. This is possible since $\Lambda$ is compact and $\mathcal{C}_b$ is open.
+	\begin{remark}
+	\label{lyapunov}
+	Let us suppose we are given a differential inclusion $\dot{x}(t) \in H(x(t))$, an associated attractor 
+	set $\mathcal{A}$ and a strongly positive invariant neighborhood 
+	$\mathcal{U}$ of $\mathcal{A}$. We define an upper-semicontinuous Lyapunov function
+	$V$, as found in \textit{Remark 3.26, Section 3.8} of \cite{Benaim05}. In other words,
+	$V: \overline{\mathcal{U}} \to \mathbb{R}^+$ given by $V(x) :=$ $\max 
+	\left\{ d(y, \mathcal{A}) g(t) \mid y \in \Phi_t(x), t \ge 0 \right\}$,
+	where $g$ is an increasing function such that $0 < c < g(t) < d$ for all $t \ge 0$.
+	We claim that $V$ satisfies $(A4b)$. To verify this claim we consider the following.
+	$\mathcal{U}$ is strongly positive invariant and
+	$V(x) \le \underset{u \in \mathcal{U}}{\sup} \ d(u, \mathcal{A}) \times d$ 
+	for $x \in \mathcal{U}$, hence
+	$\underset{u \in \mathcal{U}}{\sup} \ V(u) < \infty$. It follows from the upper semicontinuity of $V$ that $\underset{u \in \overline{\mathcal{U}}}{\sup} \ V(u) < \infty$ \textit{i.e.,} (A4b)(iv) is satisfied.
+	It is left to show that $(A4b)(iii)$ is also satisfied. Fix $x \in \mathcal{U}$ and $t > 0$. It follows from the definition of a semi-flow that
+	$\Phi_s(y) \subseteq \Phi_{t+s}(x)$ for any $y \in \Phi_t (x)$, where $s > 0$. Further, 
+	\[
+	V(x) \ge \max \{d(z,  \mathcal{A}) g(t+s) \mid z \in \Phi_s(y), s \ge 0\} \text{ and}
+	\]
+	\[
+	\max \{d(z,  \mathcal{A}) g(t+s) \mid z \in \Phi_s(y), s \ge 0\} > \max \{d(z,  \mathcal{A}) g(s) \mid z \in \Phi_s(y), s \ge 0\}.
+	\]
+	The RHS of the above equation is $V(y)$ \textit{i.e.,} $V(x) > V(y)$.
+	\end{remark} 
+We consider one final alternative to $(A4a)$ and $(A4b)$ below.
+\begin{itemize}
+\item[(A4c)]
+\begin{itemize}
+ \item[(i)] $\mathcal{A}$ is the global attractor of $\dot{x}(t) \in H(x(t))$.
+ \item[(ii)] $V: \mathbb{R}^d \to \mathbb{R}^+$ is an
+upper semicontinuous function such that $V(x) > V(y)$ for all $x \in \mathbb{R}^d \setminus \mathcal{A}$, 
+$y \in \Phi_t (x)$ and $t > 0$.
+\item[(iii)] $V(x) \ge V(y)$ for all $x \in \mathcal{A}$, $y \in \Phi_t (x)$ and $t > 0$.
+\end{itemize}
+\end{itemize}
+As with $(A4a)$ and $(A4b)$, we define open sets $\mathcal{B}_c$ and $\mathcal{C}_c$ satisfying 
+conditions (a) and (b), see below the statement of $(A4a)$. 
+Recall that $\mathcal{V}_r = \{x \mid V(x) < r \}$.
+Define $\mathcal{C}_c := \mathcal{V}_r$ and $\mathcal{B}_c := \mathcal{V}_s$ for 
+appropriate $r$ and $s$ satisfying $\underset{x \in \mathbb{R}^d}{\sup} V(x) > r > s > \underset{x \in \mathcal{A}}{\sup} V(x)$.
+Suppose we are unable to find such an $s$ then we may choose $\mathcal{B}_c$ to be any open set
+satisfying the required properties once $\mathcal{C}_c$ is fixed as mentioned before.
+\begin{remark}
+ \label{lyapunov1}
+ In Remark~\ref{lyapunov}, we explicitly constructed a local Lyapunov function satisfying
+ $(A4b)$. Similarly, here, we construct a global Lyapunov function satisfying $(A4c)$. Define the function
+ $V: \mathbb{R}^d \to \mathbb{R}^+$ as $V(x) := \ \max\left\{ d(y, \mathcal{A}) g(t) \mid y \in \Phi_t(x), t \ge 0 \right\}$, where $g(\cdotp)$ is defined in Remark~\ref{lyapunov}. 
+ This Lyapunov function, $V$, satisfies $(A4c)$. The proof is similar 
+ to the one found in Remark~\ref{lyapunov}.
+\end{remark}
+
+\textbf{Inward directing sets:} \textit{Given a differential inclusion $\dot{x}(t) \in H(x(t))$,
+an open set $\mathcal{O}$ is said to be an inward directing set with respect to the aforementioned
+differential inclusion, if $\Phi_t(x) \subseteq \mathcal{O}$, $t >0$, whenever $x \in \overline{\mathcal{O}}$.}
+Specifically, any solution to the DI with starting point at the boundary of $\mathcal{O}$
+is ``directed inwards'', into $\mathcal{O}$.
+\begin{proposition}
+ \label{sa_inward}
+ The open sets $\mathcal{C}_a$, $\mathcal{C}_b$ and $\mathcal{C}_c$, constructed in accordance
+ to assumptions $(A4a)$, $(A4b)$ and $(A4c)$ respectively, are inward directing sets with respect
+ to $\dot{x}(t) \in H(x(t))$.
+\end{proposition}
+\begin{proof}
+ Recall that the set $\mathcal{C}_a$ is constructed such that $V(x) = R_c$ for every 
+ $x \in \partial\mathcal{C}_a$ and $V(y) < R_c$ for every 
+ $y \in \mathcal{C}_a$. Since $\overline{\mathcal{C}_a} \subseteq \mathcal{U}$, it follows
+ from $(A4a)(iii)$ that $V(x) > V(y)$, where 
+ $x \in \partial \mathcal{C}_a$, $y \in \Phi_t(x)$ and $t>0$. In other words, $V(y) < R_c$ and
+ $\Phi_t(x) \subset \mathcal{C}_a$ for $t >0$ and
+ $x \in \partial \mathcal{C}_a$. It is left to show that $\Phi_t(x) \subset \mathcal{C}_a$ for 
+ $x \in \mathcal{C}_a$ and $t>0$. This follows directly from the observation that
+ $R_c > V(x) > V(y)$ for every $y \in \Phi_t(x)$ and $t > 0$.
+ 
+ $\mathcal{C}_b$ and $\mathcal{C}_c$ can be similarly shown to be inward directing.
+\end{proof}
+In what follows, we use assumptions $(A1)$-$(A3)$, $(A5)$ and the existence of an
+\textit{inward directing set with respect to the associated DI}, to prove the stability
+of (\ref{sa_sri}). As a consequence of
+Proposition~\ref{sa_inward}, we may verify one among
+$(A4a)$, $(A4b)$ and $(A4c)$ to ensure the existence of such an inward directing set.
+It may be noted that these assumptions are qualitatively different. 
+However, their primary role is to help us find one of the aforementioned inward directing sets.
+Depending on the nature of the iteration being analyzed, it may be easier to verify one rather than
+the others.
+\section{Analysis of the projective scheme} \label{sec_analysis}
+We begin this section with a minor note on notations.
+Since the roles of $(A4a)$, $(A4b)$ and $(A4c)$ are indistinguishable, we shall refer to them generically
+as $(A4)$.
+In a similar manner, 
+$\mathcal{B}_{a/b/c}$ and $\mathcal{C}_{a/b/c}$ are generically referred to as $\mathcal{B}$
+and $\mathcal{C}$ respectively.
+Note that $\overline{\mathcal{B}} \subseteq \mathcal{C}$. We also define the projection map, $\pro _{\mathcal{B,C}}: \mathbb{R}^d \to \{\text{subsets of }\mathbb{R}^d\}$, as follows:
+\[
+	\pro _{\mathcal{B,C}}(x) :=  \begin{cases}
+	\{x\} \text{, if $x \in \mathcal{C}$}  \\
+	\{y \mid d(y, x) = d(x, \overline{\mathcal{B}}), \ y \in \overline{\mathcal{B}} \}  \text{, otherwise}
+	\end{cases}.
+\]
+As in \cite{abounadi}, in order to prove stability, (\ref{sa_sri}) is compared to the following projective scheme.
+\begin{equation} \label{san_proj1}
+\begin{split}
+\tilde{x}(n+1) &= x_n + a(n) \left[y_n + M_{n+1} \right], \\
+x_{n+1} &= z_n, \text{ where } z_n \in \pro_{\mathcal{B,C}}(\tilde{x}_{n+1}),
+\end{split}
+\end{equation}
+where $y_n \in H(x_n)$ and $x_0 \in \pro_{\mathcal{B,C}}(\tilde{x}_{0})$, with $\tilde{x}_0 \in \mathbb{R}^d$.
+Note that the initial point $\tilde{x}_0$
+is first projected before starting the projective scheme.
+The above equation can be rewritten as
+\begin{equation} \label{san_proj}
+x_{n+1} = x_n + a(n) \left[ y_n + M_{n+1} \right] + g_n,
+\end{equation}
+where $g_n = z_n - \left(x_n + a(n) \left[ y_n + M_{n+1} \right] \right)$.
+Let us construct a linearly interpolated trajectory using (\ref{san_proj}). We begin by dividing 
+$[0, \infty)$ into diminishing intervals using  the step-size sequence.
+Let $t_0:=0$ and $t_n := \sum \limits_{m=0}^{n-1} a(m)$ for $n \ge 1$. 
+The linearly interpolated trajectory $X_l(t)$ is defined as follows:
+\begin{equation} \label{san_li}
+X_l(t) := \begin{cases}
+			x_n \text{, for } t = t_n  \\
+			\left(1- \frac{t-t_n}{a(n)} \right) x_n + \left(\frac{t - t_n}{a(n)} \right) \tilde{x}_{n+1}  \text{, for } t \in [t_n , t_{n+1})
+		\end{cases}.
+\end{equation}
+The above constructed trajectory is right continuous with left-hand limits, \textit{i.e.,} $X_l(t) = \lim\limits_{s \downarrow t} X_l(s)$ and $ \lim\limits_{s \uparrow t} X_l(s)$ exists. Further the jumps occur exactly at those $t_n$'s
+for which the corresponding $g_{n-1}$'s are non-zero.
+We also define three piece-wise constant trajectories $X_c(\cdotp)$, $Y_c(\cdotp)$ and $G_c(\cdotp)$ as follows: $X_c(t) := x_n$, $Y_c(t) := y_n$ and $G_c(t) := \sum\limits_{m=0}^{n-1} g_m$ for $t \in [t_n, t_{n+1})$. 
+The trajectories $X_c(\cdotp)$, $Y_c(\cdotp)$ and $G_c(\cdotp)$ are also right continuous with left-hand limits.
+We define a linearly interpolated trajectory associated with $\{M_{n+1}\}_{n \ge 0}$ as follows:
+\[
+W_l(t) := \begin{cases}
+			\sum\limits_{m=0}^{n-1} a(m) M_{m+1} \text{ for } t = t_n\\
+			\left(1- \frac{t-t_n}{a(n)} \right) W_l(t_n) + \left(\frac{t - t_n}{a(n)} \right) W_l(t_{n+1})  \text{, for } t \in [t_n , t_{n+1})
+			\end{cases}.
+\]
+We define a few ``left-shifted trajectories'' using the above constructed trajectories. For $t \ge 0$,
+\[
+X_l^n(t) :=  X_l(t_n+t), 
+\]
+\[
+X_c^n(t) := X_c(t_n+t),
+\]
+\[
+Y_c^n(t):= Y_c(t_n + t),
+\]
+\[
+G_c^n(t):=G_c(t_n+t) - G_c(t_n),
+\]
+\[
+W_l^n(t):=W_l(t_n+t) - W_l(t_n).
+\]
+\begin{lemma}
+\label{san_xl}
+$X_l^n(t) = X^n_l(0) + \int \limits_0^t Y_c^n(\tau) \,d\tau + \ W_l^n(t) + \ G_c^n(t) $ for $t \ge 0$.
+\end{lemma}
+\begin{proof}
+Fix $s  \in [t_m, t_{m+1})$ for some $m \ge 0$. We have the following
+\[
+X_l(s) = \left(1- \frac{s-t_m}{a(m)} \right) x_m + \left(\frac{s - t_m}{a(m)} \right) \tilde{x}_{m+1} ,
+\]
+\[
+X_l(s) = \left(1- \frac{s-t_n}{a(m)} \right) x_m + \left(\frac{s - t_m}{a(m)} \right) 
+\left( x_m + a(m) \left[ y_m + M_{m+1} \right] \right),
+\]
+\[
+X_l(s) = x_m + \left(s - t_m \right) \left[ y_m + M_{m+1} \right] .
+\]
+Let us express $X_l^{n}(t)$ in the form of the above equation. Note that 
+$t_n + t \in [t_{n+k}, t_{n+k+1})$ for some $k \ge 0$. Then we have the following:
+\[
+X_l^n(t) = x_{n+k} + (t_n + t - t_{n+k}) \left[ y_{n+k} + M_{n+k+1} \right].
+\]
+Unfolding $x_{n+k}$, in the above equation till $x_n\ (X^n_l(0))$, yields:
+\begin{equation}
+\label{san_xl1}
+X_l^n(t) = X^n_l(0) + \sum\limits_{l=n}^{n+k-1} \left( a(l) \left[y_{l} + M_{l+1} \right] + g_l \right) + (t_n + t - t_{n+k}) \left[ y_{n+k} + M_{n+k+1} \right].
+\end{equation}
+We make the following observations:\\ 
+$G_c^n(t) = \sum\limits_{l=n}^{n+k-1} g_l$, \\
+$W_{l}^n(t_{n+k} -  t_n) = \sum\limits_{l=n}^{n+k-1} a(l) M_{l+1}$, \\
+$W_l^n(t) = W_{l}^n(t_{n+k} -  t_n) +  (t_n + t - t_{n+k})M_{n+k+1}$ and \\
+$\int \limits_0^t Y_c^n(\tau) \,d\tau = \sum\limits_{l=n}^{n+k-1} a(l) y_l +  (t_n + t - t_{n+k}) y_{n+k}$.\\
+As a consequence of the above observations, (\ref{san_xl1}) becomes:
+\[
+X_l^n(t) = X^n_l(0) +  \int \limits_0^t Y_c^n(\tau) \,d\tau + \ W_l^n(t) + \ G_c^n(t).
+\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Fix $T >0$. If $\{X_l^n([0,T]) \mid n \ge 0\}$ and $\{G_c^n([0,T]) \mid n \ge 0\}$ are viewed as 
+subsets of $D([0,T], \mathbb{R}^d)$ equipped with the Skorohod topology, then we may use the 
+Arzela-Ascoli
+theorem for $D([0,T], \mathbb{R}^d)$ 
+to show that they are relatively compact, see Billingsley \cite{billingsley} for details. The Arzela-Ascoli theorem for $D([0,T], \mathbb{R}^d)$ states the following:
+A set $S \subseteq D([0,T], \mathbb{R}^d)$, is relatively compact if and only if the following conditions are satisfied:
+\begin{itemize}
+\item[] $\underset{x(\cdotp) \in S}{\sup} \ \underset{t \in [0,T]}{\sup} \lVert x(t) \rVert < \infty$,
+\item[] $\lim\limits_{\delta \to 0}$ $\underset{x(\cdotp) \in S}{\sup}$ $\underset{t_1 \le t \le t_2,\ t_2 - t_1 \le \delta}{\sup} \min \left\{ \lVert x(t) - x(t_1) \rVert, \lVert x(t_2) - x(t) \rVert \right\} = 0$,
+\item[] $\lim \limits_{\delta \to 0}$ $\underset{x(\cdotp) \in S}{\sup}$ $\underset{t_1, t_2 \in [0, \delta)}{\sup} \lVert x(t_2) -  x(t_1) \rVert = 0$ and
+\item[] $\lim \limits_{\delta \to 0}$ $\underset{x(\cdotp) \in S}{\sup}$ $\underset{t_1, t_2 \in [T-\delta, T)}{\sup} \lVert x(t_2) -  x(t_1) \rVert = 0$.
+\end{itemize}
+If $\{X_l^n([0,T]) \mid n \ge 0\}$ and $\{G_c^n([0,T]) \mid n \ge 0\}$ 
+are point-wise bounded and any two of their discontinuities are separated by
+at least $\Delta$, for some fixed $\Delta > 0$,
+then the above four conditions will be satisfied, see \cite{billingsley} for details.
+\begin{lemma}
+\label{san_rc}
+$\{X_l^n([0,T]) \mid n \ge 0\}$ and $\{G_c^n([0,T]) \mid n \ge 0\}$ are relatively compact in 
+$D([0,T], \mathbb{R}^d)$ equipped with the Skorohod topology.
+\end{lemma}
+\begin{proof}
+Recall from $(A3)(i)$ that $\lVert M_{n+1} \rVert \le D$, $n \ge 0$.
+Since $H$ is Marchaud, it follows that 
+$\underset{x \in \overline{\mathcal{C}},\ y \in H(x)}{\sup} \lVert y \rVert \le C_1$ for some $C_1 > 0$ 
+and that $\underset{n \ge 0}{\sup}\ \lVert \tilde{x}_{n+1} - x_{n} \rVert \le 
+\left(\sup \limits_{m \ge 0} a(m)\right) (C_1 + D)$. 
+Further, $g_n \le \lVert \tilde{x}_{n+1} - x_{n} \rVert +  d(x_n , \partial \mathcal{B}) \le C_2$ for 
+some constant $C_2$ that is independent of $n$. 
+In other words, we have that the sequences $\{X_l^n([0,T]) \mid n \ge 0\}$ and $\{G_c^n([0,T]) 
+\mid n \ge 0\}$ are point-wise bounded. It remains to show that any two discontinuities are separated. 
+Let $d := \underset{x \in \partial \mathcal{C}}{\min}\ d(x, \overline{B})$ and $D_1 := D\ +\ \underset{x \in \overline{\mathcal{C}}}{\sup} \underset{y \in H(x)}{\sup} \lVert y \rVert$. Clearly $d > 0$. Define
+\[
+m(n) = \max \left\{ j > 0 \ \mid \ \sum \limits_{k=n}^{n+j} a(k) < d/D_1 \right\}.
+\]
+If there is a jump at $t_n$, then $x_n \in \partial \mathcal{B}$. It follows from the definition of $m(n)$ that $x_k \in \mathcal{C}$ for $n \le k \le m(n)$. In other words, there are no discontinuities in the interval
+$[t_n, t_{n + m(n)})$ and $t_{n + m(n)} - t_n \ge \frac{d}{2 D_1}$. 
+If we fix $\Delta := \frac{d}{2 D_1} > 0$, then any two discontinuities are separated by at least $\Delta$. 
+\end{proof}
+\textit{Since $T$ is arbitrary, it follows that $\{X_l^n([0,\infty)) \mid n \ge 0\}$ and $\{G_c^n([0,\infty)) \mid n \ge 0\}$ are relatively compact in $D([0,\infty), \mathbb{R}^d)$}.
+Since $\{W_l^n([0,T]) \mid n \ge 0\}$ is point-wise bounded (assumption $(A3)(i)$) and continuous, it is relatively compact in $D([0,T], \mathbb{R}^d)$. It follows from $(A3)(ii)$ that
+any limit of $\{W_l^n([0,T]) \mid n \ge 0\}$, in $D([0,T], \mathbb{R}^d)$, is the constant $0$ function.
+Suppose we consider sub-sequences of $\{X_l^n([0,T]) \mid n \ge 0\}$ and $\left\{X^n_l(0) +  \int \limits_0^T Y_c^n(\tau) \,d\tau + \ G_c^n(T) \mid n \ge 0 \right\}$ along
+which the aforementioned noise trajectories converge, then their limits are identical. 
+\paragraph{}
+Consider $\{m(n)\}_{n \ge 0} \subseteq \mathbb{N}$ along which $\{G_c^{m(n)}([0,T])\}_{n \ge 0}$
+and $\{X_l^{m(n)}([0,T])\}_{n \ge 0}$ converge in $D([0,T], \mathbb{R}^d)$. Further, let
+$g_{m(n)-1}=0$ for all $n \ge 0$. Suppose the limit of 
+$\{G_c^{m(n)}([0,T])\}_{n \ge 0}$ is the constant $0$ function, then it can be shown that the limit of
+$\{X_l^{m(n)}([0,T])\}_{n \ge 0}$ is
+\[
+ X(t) = X(0) + \int \limits_0 ^t Y(\tau) d\tau,
+\]
+where $X(0) \in \overline{\mathcal{C}}$ and $Y(t) \in H(X(t))$ for $t \in [0,T]$. The proof of this is
+along the lines of the proof of \textit{Theorem 2 in Chapter 5.2} of Borkar \cite{BorkarBook}. Suppose
+every limit of $\{G_c^{m(n)}([0,T])\}_{n \ge 0}$ is the constant $0$ function whenever
+$g_{m(n)-1}=0$ for all $n \ge 0$, then every limit of $\{X_l^{m(n)}([0,T])\}_{n \ge 0}$
+is a solution to $\dot{X}(t) \in H(X(t))$. Suppose we show that the aforementioned statement is true for
+every $T > 0$. Then, along with $(A5)$ the stability of (\ref{sa_sri}) is implied. 
+Note that the set $K : = \{n \mid g_{n} = 0\}$ has infinite cardinality since
+any two discontinuities are at least $\Delta > 0$ apart.
+\begin{lemma}
+\label{san_gis0}
+Let $K = \{ n \mid g_n  = 0\}$. Without loss of generality let $\{X_l^n([0,T])\}_{n \in K}$ and $\{G_c^n([0,T])\}_{n \in K}$
+be convergent, as $n \to \infty$, in $D([0,T], \mathbb{R}^d)$. Then $X_l^n(t) \to X(0) + \int \limits_{\tau = 0}^{t} Y(s) \ ds + G(t)$ for $t \in [0,T]$ and
+$G(\cdotp) \equiv 0$.
+\end{lemma}
+\begin{proof}
+We begin by making the following observations: 
+\begin{itemize}
+\item[(a)] $X(0) \in \overline{\mathcal{C}}$.
+\item[(b)] Any two discontinuities of $X(\cdotp)$ are at least $\Delta$ apart.
+\item[(c)] $G(0) = 0$.
+\item[(d)] Solutions to $\dot{x}(t) \in H(x(t))$ with starting points in $\overline{\mathcal{C}}$ will 
+not hit the boundary, $\partial \mathcal{C}$, later, \textit{i.e.,} they remain in the interior of 
+$\mathcal{C}$. This observation is a consequence of Proposition~\ref{sa_inward}.
+\end{itemize}
+It follows from the above observations that $(i)$ $X(t) \in \mathcal{C}$ for small values of $t$, $(ii)$ $\tau : = \inf \{ t  \mid t > 0, X(t^+) \neq X(t^-) \}$ and $\tau > 0$. It follows from the nature
+of convergence that $\exists \ \tau_n' > \tau > \tau_n$, $n \ge 0$ such that 
+\[
+\tau_n ' - \tau_n \to 0,
+\]
+\[
+\lVert X_l^n(\tau_n ') - X(\tau^+) \rVert \to 0 \text{ and}
+\]
+\[
+\lVert X_l^n(\tau_n) - X(\tau^-) \rVert \to 0.
+\]
+For large values of $n$, $X_l^n(\cdotp)$ has exactly one jump (point of discontinuity) 
+at $\hat{\tau}_n \in [\tau_n, \tau_n']$, let us call this point of discontinuity as $\hat{\tau}_n$.
+Let $\delta := \lVert X(\tau^+) -  X(\tau^-) \rVert > 0$, then for large values of $n$ we have
+\[
+\lVert X_l^n(\hat{\tau}_{n}^+) - X_l^n(\hat{\tau}_{n}^-) \rVert \ge \delta / 2.
+\]
+Also, $X_l^n(\hat{\tau}_{n}^-)$ is not in $\mathcal{C}$ and $ X_l^n(\hat{\tau}_{n}^+)$ is in $\partial \mathcal{B}$. Further, since $\hat{\tau}_n ^- - \tau_n \to 0$, as $n \to \infty$,
+it follows that
+\[
+X_l^n(\hat{\tau}_{n}^-) - X(\tau ^-) \to 0.
+\]
+Hence, $X(\tau^-) \notin \mathcal{C}$. Similarly, we have that 
+$X(\tau^+) \in \partial \mathcal{B}$. 
+Observe that $X([0, \tau))$ is a solution to $\dot{x}(\cdotp) \in H(x(\cdotp))$ such that $X(0) \in \overline{\mathcal{C}}$, since $G(t) = 0$ for $t \in [0,\tau)$. Further, since $\mathcal{C}$ is \textit{inward
+directing}, we have that $X(t) \in \mathcal{C}$ for $t \in [0, \tau)$.
+Since $X(t) \in \mathcal{C}$ for $t < \tau$ and $X(\tau ^-) \notin \mathcal{C}$ we have $X(\tau ^-) \in \partial 
+\mathcal{C}$.
+\paragraph{}
+Since $X(0) \in \overline{\mathcal{C}}$, we have that $V(X(0)) \le R$, for some $0 < R < \infty$.
+As a consequence of our choice of $\mathcal{C}$ 
+($\mathcal{C}$ is $\mathcal{C}_a$/$\mathcal{C}_b$/$\mathcal{C}_c$ within the context of $(A4a)$/$(A4b)$/$(A4c)$)
+we have $V(x) = V(y)$ for any $x,y
+\in \partial C$, hence we may fix $R := V(x)$ for any $x \in \partial C$. 
+Fix $\tau_0 \in (0, \tau)$, it follows from Proposition~\ref{sa_inward} that
+$V(X(\tau_0)) < R$. Let $t_n \uparrow \tau$ such that $t_n \in (\tau_0, \tau)$ for $n \ge 1$. Without loss of generality, $X(t_n) \to X(\tau^-)$ and $V(X(t_n)) \to V(X(\tau^-))$, as $t_n \to \tau$ (else we may choose a sub-sequence
+of $\{t_n\}_{n \ge 0}$ along which $V(X(t_n))$ is convergent). Thus, $\exists \ N$ such that $V(X(t_n)) > V(X(\tau_0))$ for $n \ge N$. Since $X([\tau_0, t_n])$ is a solution to $\dot{x}(t) \in H(x(t))$ with starting point $X(\tau_0)$,
+the aforementioned conclusion contradicts $(A4a)(iii)$/$(A4b)(iii)$/$(A4c)$.
+In other words, $X(\tau^-) \in \mathcal{C}$ and $\notin \partial \mathcal{C}$. Thus we have shown that there is no jump at $\tau$, \textit{i.e.,} $X(\tau^+)  = X(\tau^-)$.
+\end{proof}
+Suppose $(A4a)$ / $(A4b)$ holds, then it follows from \textit{Proposition 3.25} of Bena\"{i}m, Hofbauer 
+and Sorin \cite{Benaim05} that there is an attracting set $\mathcal{A} \subseteq \Lambda$ such that
+$\overline{\mathcal{C}}_a$ / $\overline{\mathcal{C}}_b$ is within the basin of attraction. 
+Suppose $(A4c)$ holds, then $\mathcal{A}$ is the globally attracting set of
+$\dot{x}(t) \in H(x(t))$.
+\begin{lemma}
+\label{san_conv2A}
+The projective stochastic approximation scheme given by (\ref{san_proj1}) converges to the 
+attractor $\mathcal{A}$.
+\end{lemma}
+\begin{proof}
+We begin by noting that $T$ of Lemma~\ref{san_gis0} is arbitrary.
+Since $G \equiv 0$, after a certain number of iterations of (\ref{san_proj1}), there are no projections, 
+\textit{i.e.,} $\tilde{x}_{n} = x_{n}$ for $n \ge N$. Here $N$ could be sample path dependent.
+Further, it follows from Lemma~\ref{san_gis0} that the projective scheme given by (\ref{san_proj1}) tracks a solution to $\dot{x}(t) \in H(x(t))$. In other words, the projective scheme given by (\ref{san_proj1})
+converges to a limit point of the $DI$, $\dot{x}(t) \in H(x(t))$.
+
+The iterates given by (\ref{san_proj1}) are within $\mathcal{C}$ after sometime and they track a solution to $\dot{x}(t) \in H(x(t))$. Since $\mathcal{C}$ is within the basin of attraction
+of $\mathcal{A}$, the iterates converge to $\mathcal{A}$.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Main results: stability and convergence} \label{sec_sc}
+In this section we show that the iterates given by (\ref{sa_sri}) are stable (bounded almost surely) and 
+converge to a closed connected internally chain transitive invariant set
+associated with $\dot{x}(t) \in H(x(t))$. We show the stability of (\ref{sa_sri}), by comparing the iterates 
+generated by (\ref{sa_sri}) to those generated by (\ref{san_proj1}). 
+As stated in $(A5)$, we assume that the noise sequence
+is exactly the same for both (\ref{sa_sri}) and (\ref{san_proj1}).
+\begin{theorem}
+\label{sc_main}
+Under $(A1)$-$(A5)$, the iterates given by (\ref{sa_sri}) are stable (bounded almost surely) and 
+converge to a closed, connected, internally chain transitive, invariant set
+associated with $\dot{x}(t) \in H(x(t))$.
+\end{theorem}
+\begin{proof}
+For notational convenience we use $\{ \hat{x}_n \}_{n \ge 0}$ for the iterates generated by the projective scheme
+and $\{x_n\}_{n \ge 0}$ for the iterates generated by (\ref{sa_sri}). 
+Recall that $\hat{x}_n \to \mathcal{A}$, where $\mathcal{A} \subset \mathcal{B}$, see Lemma~\ref{san_conv2A}. In other words
+there exists $N$, possibly sample path dependent, such that $\hat{x}_n \in \mathcal{B}$ for all $n \ge N$. 
+In other words, $\underset{n \ge N}{\sup} \lVert \hat{x}_n \rVert \le 
+\underset{x \in \mathcal{B}}{\sup} \lVert x \rVert < \infty$.
+It follows from $(A5)$ that $\underset{n \ge N}{\sup} \lVert x_n \rVert < \infty$. Almost surely, there exists $N$, possibly sample path dependent, such that
+$\hat{x}_n \in \mathcal{B}$ for all $n \ge N$. This directly leads to the stability of (\ref{sa_sri}).
+
+The iterates given by (\ref{sa_sri}) satisfy assumptions $(A1)$-$(A3)$. 
+Further, we have shown above that they are also stable. It follows from \textit{Theorem 3.6 and Lemma 3.8}
+of Bena\"{i}m \cite{Benaim05} that the iterates converge to a closed connected internally chain transitive
+invariant set associated with $\dot{x}(t) \in H(x(t))$.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General noise sequences} \label{sec_gn}
+The restriction $(A3)$ on the noise sequence,
+is rather strict since it only 
+allows for ``bounded noise''.
+In this section, we show that Theorem~\ref{sc_main} will continue to hold even when
+the noise sequence is more generally a square integrable Martingale difference sequence.
+\begin{itemize}
+\item[(A3a)] $(M_n, \mathcal{F}_n)_{n \ge 1}$ is a square integrable Martingale difference 
+sequence $\bigg( E[M_{n+1} \mid \mathcal{F}_n] = 0$ and $EM_{n+1}^2 < \infty$, $n \ge 0 \bigg)$ such that
+\[
+ E\left[ \lVert M_{n+1} \rVert ^2 \mid \mathcal{F}_n \right] \le K(1 + \lVert x_n \rVert ^2), \text{ where $n \ge 0$ and $K > 0$.}
+\]
+\end{itemize}
+In the above, $\mathcal{F}_0 := \sigma\langle x_0 \rangle$ and 
+$\mathcal{F}_n := \sigma \left\langle x_0, x_1, \ldots, x_n, M_1, \ldots, M_n \right\rangle$ for $n \ge 1$. Further without loss of generality,
+we may assume that $K$ in $(A3a)$ and $(A1)$ are equal (otherwise we can use maximum of the two constants).
+
+In the analysis of the projective scheme given by (\ref{san_proj1}), assumption $(A3)$ 
+is used in Lemma~\ref{san_rc}. Specifically, $(A3)(i)$ is used to show that any two discontinuities
+of $\{X^l_n([0,T])\}_{n\ge 0}$ and $\{ G_c^n([0,T]) \}_{n \ge 0}$ are separated by at least $\Delta > 0$. 
+We show that the aforementioned property holds when $(A3)$
+is replaced by $(A3a)$. First, we prove an auxiliary result.
+\begin{lemma} \label{gn_1}
+Let $\{t_{m(n)}, t_{l(n)}\}_{n \ge 0}$ be such that $t_{l(n)} > t_{m(n)}$, $t_{m(n+1)} > t_{l(n)}$ 
+and $\underset{n \to \infty}{\lim}t_{l(n)} - t_{m(n)} = 0$. Fix an arbitrary $c > 0$ and consider the following:
+\[
+\psi_n := \left \lVert \sum \limits_{i = m(n)}^{l(n)-1} a(i) M_{i+1} \right \rVert.
+\]
+Then $P \left( \{\psi_n > c\}\  i.o. \right) = 0$ within the context of 
+the projective scheme given by (\ref{san_proj1}).
+\end{lemma}
+\begin{proof}
+We need to show that $\sum \limits_{n \ge 0} P(\psi_n > c) < \infty$. It follows from Chebyshev's 
+inequality that
+\[
+P(\psi_n > c) \le \frac{E \psi^2 _n}{c^2} = 
+\frac{E \left[ \left \lVert \sum \limits_{i = m(n)}^{l(n)-1} a(i) M_{i+1} \right \rVert ^2 \right]}{c^2}.
+\]
+Since $\{M_{n+1}\}_{n \ge 0}$ is a Martingale difference sequence, we get:
+\begin{equation}
+\label{sc_che}
+P(\psi_n > c) \le \frac{ \sum \limits_{i = m(n)}^{l(n)-1} a(i)^2 E \left[\lVert M_{i+1}\rVert^2 \right]}{c^2}.
+\end{equation}
+Within the context of the projective scheme given by (\ref{san_proj1}), 
+almost surely $\forall \ n \ x_n \in \overline{\mathcal{C}}$, \textit{i.e.,} $\underset{n \ge 0}{\sup} \ \lVert x_n \rVert \le C_1 < \infty$ a.s.
+It follows from $(A3a)$ that $E \left[ \left \lVert M_{n+1} \right \rVert ^2 \right] \le K \left(1 + E \lVert x_n \rVert ^2  \right)$. Hence,
+$E \left[ \left \lVert M_{n+1} \right \rVert ^2 \right] \le K \left(1 + C_1 ^2  \right)$. 
+Equation (\ref{sc_che}) becomes
+\[
+P(\psi_n > c) \le \frac{ \sum \limits_{i = m(n)}^{l(n)-1} a(i)^2 K \left(1 + C_1 ^2  \right)}{c^2}.
+\]
+Since $t_{l(n)} > t_{m(n)}$ and $t_{m(n+1)} > t_{l(n)}$, 
+we have $\sum \limits_{n \ge 0} \sum \limits_{i = m(n)}^{l(n)-1} a(i)^2 \le \sum \limits_{n \ge 0} a(n)^2$.
+Finally we get,
+\[
+\sum \limits_{n \ge 0} P(\psi_n > c) \le \frac{ \left(\sum \limits_{n \ge 0} a(n)^2 \right) 
+K \left(1 + C_1 ^2  \right)}{c^2} < \infty.
+\]
+\end{proof}
+Let us consider the scenario in which we cannot find $\Delta$, 
+the separation between any two points of discontinuity. 
+In other words, there exists $\{ t(m(n)), t(l(n)) \}_{n \ge 0}$ such that
+$t_{l(n)} > t_{m(n)}$, $t_{m(n+1)} > t_{l(n)}$ and $\underset{n \to \infty}{\lim}t_{l(n)} - t_{m(n)} = 0$. Without loss of generality we assume that there are no jumps between $t(m(n))$ and $t(l(n))$. Note that $X_l(t_{m(n)}^+) \in \partial \mathcal{B}$ and $X_l(t_{l(n)}^-) \notin \mathcal{C}$ for all $n \ge 0$.
+We have 
+\[
+X_l(t_l(n)^-) = X_l(t_m(n)) + \sum \limits_{i=m(n)}^{l(n)-1} a(i) \left( y_i + M_{i+1} \right).
+\]
+We have that $\underset{n \ge 0}{\sup}\ \lVert y_n \rVert \le D'$ for some $0 < D' < \infty$. 
+The above equation becomes
+\[
+\lVert X_l(t_l(n)^-) - X_l(t_m(n)) \rVert \le \sum \limits_{i=m(n)}^{l(n)-1} a(i) D' +  \left\lVert \sum \limits_{i=m(n)}^{l(n)-1} a(i) M_{i+1} \right\rVert,
+\]
+\[
+d \le \lVert X_l(t_l(n)^-) - X_l(t_m(n)) \rVert \le \left( t_{l(n)} - t_{m(n)} \right) D' +  \left\lVert \sum \limits_{i=m(n)}^{l(n)-1} a(i) M_{i+1} \right\rVert.
+\]
+Since $t_{l(n)} - t_{m(n)} \to 0$, for large $n$ 
+$\left\lVert \sum \limits_{i=m(n)}^{l(n)-1} a(i) M_{i+1} \right\rVert > d/2$. 
+This directly contradicts Lemma~\ref{gn_1}.
+Hence we can always find $\Delta > 0$ separating any two points of discontinuity.
+\paragraph{}
+In Lemma~\ref{san_conv2A}, $(A3)$ is used to ensure the convergence of
+(\ref{san_proj1}) to the attractor $\mathcal{A}$. In Theorem~\ref{sc_main}, $(A3)$ is used to
+ensure the convergence of $(\ref{sa_sri})$ 
+to a closed connected internally chain transitive invariant set
+of the associated $DI$. Specifically, it is $(A3)(ii)$ that ensures these convergences.
+Let us define $\zeta_n := \sum \limits_{k=0}^{n-1} a(k) M_{k+1}$, $n \ge 1$. 
+If $\{\zeta_n\}_{n \ge 1}$ converges, then it trivially follows that the Martingale noise sequence
+satisfies $(A3)(ii)$. To show convergence, it is enough to show that the corresponding 
+quadratic variation process converges almost surely. In other words, we need to show that 
+$\sum \limits_{n \ge 0} a(n)^2 E \left( \lVert M_{n+1} \rVert ^2 | \mathcal{F}_n \right) < \infty$ a.s or
+$\sum \limits_{n \ge 0} E \left( a(n)^2 \lVert M_{n+1} \rVert ^2 \right) < \infty$. Consider the
+following
+\begin{equation}
+ \label{gn_mart}
+ \sum \limits_{n \ge 0}  a(n)^2 E\lVert M_{n+1} \rVert ^2 = 
+ \sum \limits_{n \ge 0} a(n)^2 E\left[ E \left[ \lVert M_{n+1} \rVert ^2 \mid \mathcal{F}_n \right] \right]
+ \le \sum \limits_{n \ge 0} a(n)^2 K(1 + E \lVert x_n \rVert ^2).
+\end{equation}
+Convergence of the quadratic variation process in the context of Lemma~\ref{san_conv2A}
+follows from (\ref{gn_mart}) and 
+$E\lVert x_n \rVert ^2 \le \underset{x \in \overline{\mathcal{C}}}{\sup}\ \lVert x \rVert ^2$. In other
+words,
+\[
+ \sum \limits_{n \ge 0} a(n)^2 E \left[ \lVert M_{n+1} \rVert ^2 \right] 
+ \le \sum \limits_{n \ge 0} a(n)^2 K(1 + 
+ \underset{x \in \overline{\mathcal{C}}}{\sup}\ \lVert x \rVert ^2) < \infty.
+\]
+Similarly, for convergence in Theorem~\ref{san_conv2A}, it follows from
+(\ref{gn_mart}) and stability of the iterates ($\underset{n \ge 0}{\sup} \lVert x_n \rVert < \infty$ a.s.) that
+\[
+ \sum \limits_{n \ge 0} a(n)^2 E \left[ \lVert M_{n+1} \rVert ^2 | \mathcal{F}_n \right]
+ \le \sum \limits_{n \ge 0} a(n)^2 K(1 + 
+ \underset{n \ge 0}{\sup}\ \lVert x_n \rVert ^2) < \infty \ a.s.
+\]
+In other words, both in Lemma~\ref{san_conv2A} and Theorem~\ref{sc_main}, assumption $(A3)(ii)$
+is satisfied. The following generalized version of Theorem~\ref{sc_main} is a direct consequence of 
+the observations made above.
+\begin{theorem}
+\label{gn_main}
+ Under $(A1),\ (A2),\ (A3a),\ (A4)$ and $(A5)$, the iterates given by (\ref{sa_sri}) are stable 
+ (bounded almost surely) and converge to a closed connected internally chain transitive invariant set
+associated with $\dot{x}(t) \in H(x(t))$.
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application: Approximate value iteration methods} \label{sec_avi}
+In this section we present an analysis of 
+\[
+ J_{n+1} = ATJ_{n},
+\]
+where $J_n \in \mathbb{R}^d$ for all $n$, $T$ is the Bellman operator, and 
+$A$ is the approximation operator. Specifically, we
+consider the following stochastic approximation counterpart of the above scheme:
+\begin{equation}
+ \label{avi_avi}
+ J_{n+1} = J_n + a(n) \left[ TJ_n - J_n + \epsilon_n + M_{n+1} \right], \text{ where}
+\end{equation}
+$(i)$ $T$ is the Bellman operator.\\
+$(ii)$ $\{a(n)\}_{n \ge 0}$ is the step-size sequence, satisfying $(A2)$.\\
+$(iii)$ $\epsilon_n = ATJ_n - TJ_n$ is the approximation error at stage $n$.\\
+$(iv)$ $\{M_{n+1}\}_{n \ge 0}$ is the Martingale difference noise sequence.
+
+Let us call (\ref{avi_avi}) as a stochastic iterative AVI.
+It is worth noting that we do not distinguish between stochastic shortest
+path and infinite horizon discounted cost problems. The definition of the Bellman operator $T$ changes appropriately.
+We make the following assumptions:
+\begin{itemize}
+ \item[(AV1)] The Bellman operator $T$ is contractive with respect to some weighted max-norm, 
+ $\lVert \cdotp \rVert_\nu$, \textit{i.e.,} $\lVert Tx - Ty \rVert_\nu \le \alpha \lVert x - y \rVert_\nu$
+ for some $0 < \alpha < 1$.
+ \item[(AV2)] $T$ has a unique fixed point $J^*$ and $J^*$ is the 
+ unique globally asymptotically stable equilibrium point of $\dot{J}(t) = TJ(t) - J(t)$.
+ \item[(AV3)] $\lVert \epsilon_n \rVert_\nu \le \epsilon$ for some fixed $\epsilon > 0$.
+\end{itemize}
+Recall the definition of the weighted max-norm: Given $\nu = (\nu_1, \ldots, \nu_d)$ such that
+$\nu_i > 0$ for $1 \le i \le d$, $\lVert x \rVert_\nu = \max \left\{ \frac{|x_i|}{\nu_i}  \mid
+1 \le i \le d \right\}$, where
+$x = (x_1, x_2, \ldots, x_d) \in \mathbb{R}^d$. Later in this section, we analyze (\ref{avi_avi})
+where the approximation errors are bounded in the general weighted p-norm sense 
+(weighted Euclidean norms). $(AV1)$ is readily satisfied in many applications, see \textit{Section 2.2}
+of Bertsekas and Tsitsiklis \cite{BertsekasBook} for details. First, let us consider
+a couple of technical lemmas.
+\begin{lemma}
+\label{avi_cc}
+ $B^\epsilon := \{ y \mid \lVert y \rVert_\nu \le \epsilon\}$ is a convex compact subset of 
+ $\mathbb{R}^d$, where $\epsilon > 0$.
+\end{lemma}
+\begin{proof}
+First we show that $B^\epsilon$ is convex.
+ Given $y_1, y_2 \in B^\epsilon$ and $y = \lambda y_1 + (1-\lambda)y_2$, where $\lambda \in (0,1)$,
+ we need show that $y \in B^\epsilon$. $\lVert y \rVert_\nu \le \lambda \lVert y_1 \rVert_\nu
+ + (1-\lambda) \lVert y_2 \rVert = \lambda \epsilon + (1-\lambda) \epsilon$.
+ 
+ Now we show that $B^\epsilon$ is compact. Define $\nu_{max} := \max\ \{\nu_i \mid 1 \le i \le d\}$. 
+ Since $\lVert y \rVert_\infty \le \nu_{max} \lVert y \rVert_\nu$, it follows that $B^\epsilon$
+ is a bounded set. It is left to show that $B^\epsilon$ is closed. Let $y_n \to y$ and 
+ $y_n \in B^\epsilon$ for every $n$. 
+ Since $\liminf \limits_{n \to \infty} \lVert y_n \rVert_\nu \ge \lVert y \rVert_\nu$,
+ it follows that $y \in B^\epsilon$.
+\end{proof}
+\begin{lemma}
+ \label{avi_marchaud}
+ The set-valued map $\tilde{T}$ given by $\tilde{T}x \mapsto Tx + B^\epsilon$ is a Marchaud map.
+\end{lemma}
+\begin{proof}
+ Since $B^\epsilon$ is a compact convex set, it follows that $\tilde{T}x$ is compact and convex. Since
+ $T$ is a contraction map, we have:
+ \[
+  \lVert Tx \rVert_\nu \le \lVert T0 \rVert_\nu + \lVert x - 0 \rVert_\nu.
+ \]
+Let $\nu_{min} := \min \ \{\nu_1, \nu_2, \ldots, \nu_d\}$ and 
+$\nu_{max} := \max \ \{\nu_1, \nu_2, \ldots, \nu_d\}$, then observe that
+$\lVert z \rVert_\nu \le \lVert z \rVert / \nu_{min}$, where $z \in \mathbb{R}^d$
+and $\lVert \cdotp \rVert$ is the standard Euclidean norm. Also, observe that
+\[
+ \lVert z \rVert = \sqrt{z_1^2 + \ldots + z_d^2} \le (d \ \nu_{max}) \ \lVert z \rVert_\nu.
+\]
+Hence we have
+\[
+ \lVert Tx \rVert \le (d \ \nu_{max}) \lVert Tx \rVert_\nu \le 
+ (d \ \nu_{max})\ \left( \lVert T0 \rVert_\nu + \lVert x \rVert_\nu \right) \text{ and that}
+\]
+\begin{equation}
+\label{marchaud_1}
+ \lVert Tx \rVert \le K'(1 + \lVert x \rVert),
+\end{equation}
+where $K' := \left(\frac{d \ \nu_{max}}{\nu_{min}}\right) \vee \left(d \ \nu_{max} \lVert T0 \rVert_\nu \right)$.
+We have that $\sup \limits_{z \in \tilde{T}x}\lVert z \rVert \le \lVert Tx \rVert + \underset{z \in B^\epsilon}{\sup}\ \lVert z \rVert$.
+It follows from Lemma~\ref{avi_cc} that $K := K' \vee \underset{z \in B^\epsilon}{\sup}\ \lVert z \rVert$
+is finite, hence $\sup \limits_{z \in \tilde{T}x}\lVert z \rVert \le K(1 + \lVert x \rVert)$.
+
+We now show that $\tilde{T}$ is upper semicontinuous. Let $x_n \to x$, $y_n \to y$ and $y_n \in \tilde{T}x_n$
+for $n \ge 0$. Since $T$ is continuous, we have that $Tx_n \to Tx$. Hence, $\left( y_n - Tx_n \right) 
+\to \left(y - Tx \right)$
+and $\epsilon \ge \liminf \limits_{n \to \infty} \lVert  y_n - Tx_n \rVert_\nu \ge \lVert y-Tx \rVert_\nu$.
+In other words, $y \in \tilde{T}x$.
+\end{proof}
+Let us define $H_\nu$, the Hausdorff metric with respect to the weighted max-norm as follows:
+Given $A, B \subseteq \mathbb{R}^d$, $H_\nu(A,B) := \max \limits_{x \in A} d_\nu(x,B) \vee 
+\max \limits_{y \in B} d_\nu(y,A)$, where $d_\nu(x,B) := \min \{ \lVert x - y \rVert_\nu \mid y \in B\}$
+and $d_\nu(y,A) := \min \{ \lVert x - y \rVert_\nu \mid x \in A\}$. Given $x, y \in \mathbb{R}^d$,
+there exist $x^* \in \tilde{T}x$ and $y^* \in \tilde{T}y$ such that 
+$\lVert x^* - y^* \rVert_\nu = H_\nu(\tilde{T}x , \tilde{T}y)$. For any $x_0 \in \tilde{T}x$
+and $y_0 \in \tilde{T}y$ we have
+\begin{equation}
+\label{avi_2epsilon}
+ \lVert x_0 - y_0 \rVert_\nu \le \lVert x_0 - x^* \rVert_\nu + \lVert x^* - y^* \rVert_\nu +
+ \lVert y^* - y_0 \rVert_\nu = 2\epsilon + H(\tilde{T}x, \tilde{T}y).
+\end{equation}
+For any $z \in \mathbb{R}^d$ we have
+\begin{equation}
+\label{avi_norms}
+ \nu_{min} \lVert z \rVert_\nu \le \lVert z \rVert \le (d \ \nu_{max}) \lVert z \rVert_\nu.
+\end{equation}
+Consider the set of all equilibrium points of $\tilde{T}$:
+$\mathcal{A} := \{J \mid \lVert TJ - J \rVert_\nu \le \epsilon\}$. For small values of $\epsilon$,
+it follows from the above set of inequalities that $\mathcal{A}$ belongs to a small neighborhood
+of $J^*$. Similarly for small values of $\epsilon$, the mean-field $\tilde{T}$ is a minor perturbation
+of $T$. Recall that $J^*$ is the globally asymptotic stable equilibrium point 
+of $\dot{J}(t) = TJ(t) - J(t)$. It follows from the upper semicontinuity of attractors that
+for small values of $\epsilon$ there exists $ \mathcal{A}'$ within a small neighborhood of $J^*$ such that
+$\mathcal{A}'$ is the global attractor of the perturbed system $\dot{J}(t) \in \tilde{T}J(t) - J(t)$.
+We will show that (\ref{avi_avi}) converges to $\mathcal{A} \cap \mathcal{A}'$ and that 
+$\mathcal{A} \cap \mathcal{A}' \neq \phi$.
+\paragraph{}
+We may construct a global Lyapunov function for the attractor $\mathcal{A}'$ of
+$\dot{J}(t) \in \tilde{T}J(t) - J(t)$ as illustrated in Remark~\ref{lyapunov1}. In other words, 
+(\ref{avi_avi}) satisfies $(A4c)$. Hence we can find sets $\mathcal{B}$ and $\mathcal{C}$ such that
+$\mathcal{A}' \subseteq \mathcal{B}$ and $\overline{\mathcal{B}} \subseteq \mathcal{C}$.
+Let us consider the following projective approximate value iteration:
+\begin{align}
+  \label{avi_pavi}
+  \nonumber
+   J_{n+1} &= \hat{J}_n + a(n)\left( T\hat{J}_n - \hat{J}_n + \hat{\epsilon}_n + M_{n+1} \right),\\
+   \hat{J}_{n+1} &= \pro _{\mathcal{B}, \mathcal{C}} (J_{n+1}).
+ \end{align}
+\textit{It is worth noting that the noise sequences in (\ref{avi_avi}) and (\ref{avi_pavi})
+are identical and that $\hat{\epsilon}_n \le \epsilon$} for all $n$. 
+Following the analysis in Section~\ref{sec_analysis}, we conclude that 
+$\hat{J}_n \to \mathcal{A}'$.
+We are now ready to analyze (\ref{avi_avi}).
+\begin{theorem}
+ \label{avi_main}
+  Under $(AV1)$-$(AV3)$, $(A2)$, and $(A3a)$, (\ref{avi_avi}) is stable and converges to
+  some point in $\left \{J \mid \lVert TJ - J \rVert_\nu \le \epsilon \right\}$, where $\epsilon$
+  is the norm-bound on the approximation errors.
+\end{theorem}
+\begin{proof}
+  We start by showing that (\ref{avi_avi}) satisfies assumption $(A5)$. Earlier we showed
+  that $\hat{J}_n \to \mathcal{A}'$. This implies that there exists $N$, possibly sample path
+  dependent, such that $\hat{J}_n \in \overline{\mathcal{B}}$ for all $n \ge N$. For $k \ge 0$
+  and $n \ge N$,
+  \[
+   \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le \left \lVert 
+   J_{n+k} - \hat{J}_{n+k} + a(n+k) \left( (TJ_{n+k} + \epsilon_{n+k}) - 
+   (T\hat{J}_{n+k} + \hat{\epsilon}_{n+k}) - (J_{n+k} - \hat{J}_{n+k}) \right)
+   \right \rVert_\nu.
+  \]
+Grouping terms of interest in the above inequality we get:
+\[
+ \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le (1 - a(n+k)) \lVert J_{n+k} - \hat{J}_{n+k}  \rVert_\nu
+ + a(n+k) \lVert (TJ_{n+k} + \epsilon_{n+k}) - 
+   (T\hat{J}_{n+k} + \hat{\epsilon}_{n+k}) \rVert_\nu.
+\]
+As a consequence of (\ref{avi_2epsilon}) the above equation becomes
+\begin{equation}
+\label{avi_thm1}
+ \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le (1 - a(n+k)) \lVert J_{n+k} - \hat{J}_{n+k}  \rVert_\nu
+ + a(n+k) \left( 2\epsilon + H_\nu (\tilde{T}J_{n+k}, \tilde{T} \hat{J}_{n+k}) \right).
+\end{equation}
+We now consider the following two cases:
+\\
+\textit{\textbf{Case 1. $2 \epsilon \le (1-\alpha) \lVert J_{n+k} - \hat{J}_{n+k} \rVert_\nu $:}}\\
+In this case (\ref{avi_thm1}) becomes
+\[
+ \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le (1 - a(n+k)) \lVert J_{n+k} - \hat{J}_{n+k}  \rVert_\nu
+ + a(n+k) \left( (1-\alpha) \lVert J_{n+k} - \hat{J}_{n+k} \rVert_\nu +
+ \alpha \lVert J_{n+k} - \hat{J}_{n+k} \rVert_\nu \right).
+\]
+Simplifying the above equation, we get
+\[
+ \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le \lVert J_{n+k} - \hat{J}_{n+k} \rVert_\nu.
+\]
+\textit{\textbf{Case 2. $2 \epsilon > (1-\alpha) \lVert J_{n+k} - \hat{J}_{n+k} \rVert_\nu $:}}\\
+In this case (\ref{avi_thm1}) becomes
+\[
+ \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le (1 - a(n+k))\frac{2 \epsilon}{1- \alpha} + a(n+k)
+ \left(2 \epsilon + \alpha \frac{2 \epsilon}{1- \alpha}  \right).
+\]
+Simplifying the above equation, we get
+\[
+ \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le \frac{2 \epsilon}{1- \alpha}.
+\]
+We may thus conclude the following:
+\begin{equation} \nonumber
+ \lVert J_{n+k+1} - \hat{J}_{n+k+1} \rVert_\nu \le \lVert J_{n+k} - \hat{J}_{n+k} \rVert_\nu
+ \vee \left(\frac{2 \epsilon}{1- \alpha} \right).
+\end{equation}
+Applying the above set of arguments to $\lVert J_{n+k} - \hat{J}_{n+k} \rVert_\nu$ and proceeding
+recursively to $\lVert J_{N} - \hat{J}_{N} \rVert_\nu$ we may conclude that for any $n \ge N$
+\begin{equation}
+ \label{avi_thm2}
+ \lVert J_{n} - \hat{J}_{n} \rVert_\nu \le \lVert J_{N} - \hat{J}_{N} \rVert_\nu
+ \vee \left(\frac{2 \epsilon}{1- \alpha} \right).
+\end{equation}
+In other words, we have $\sup \limits_{n \ge 0}\ \lVert J_{n} - \hat{J}_{n} \rVert_\nu < \infty$ a.s.
+It follows from (\ref{avi_norms}) that
+$\sup \limits_{n \ge 0}\ \lVert J_{n} - \hat{J}_{n} \rVert < \infty$ a.s. (in the Euclidean norm).
+The above arguments are inspired by Abounadi, Bertsekas and Borkar \cite{abounadi} and
+Jaakkola, Jordan and Singh \cite{jaakkola}.
+\paragraph{}
+We have shown that (\ref{avi_avi}) satisfies $(A1)$, $(A2)$, $(A3)$, $(A4c)$ and $(A5)$. It follows
+from Theorem~\ref{gn_main} that the iterates given by (\ref{avi_avi}) track a solution to
+$\dot{J}(t) \in \tilde{T}J(t) - J(t)$ and that $J_n \to \mathcal{S}$, where $\mathcal{S}$ is a closed
+connected internally chain transitive invariant set of $\dot{J}(t) \in \tilde{T}J(t) - J(t)$.
+Since $\mathcal{A}'$ is a global attractor of $\dot{J}(t) \in \tilde{T}J(t) - J(t)$, it follows
+that $\mathcal{S} \subseteq \mathcal{A}'$. 
+
+Now we show that $J_n \to \mathcal{A}$, the
+set of equilibrium points of $\tilde{T}J - J$, 
+implying that $J_n \to \mathcal{A} \cap \mathcal{A}'$ and $\mathcal{A} \cap \mathcal{A}' \neq \phi$.
+Before proceeding further, we consider the following theorem
+from Aubin and Cellina \cite{Aubin}:\\
+\textbf{[Theorem 2, Chapter 6 \cite{Aubin}]} \textit{Let $F$ be an upper semicontinuous map from a closed subset
+$K \subset X$ to $X$ with compact convex values and $x(\cdotp)$ be a solution trajectory
+of $\dot{x}(t) \in F(x(t))$ that converges to some $x^*$ in $\mathcal{K}$. Then $x^*$ is an equilibrium
+of $F$.}
+
+We have already shown that $\sup \limits_{n \ge 0} \lVert J_n \rVert < \infty$ a.s. In other words,
+there exists a large compact convex set $\mathcal{K} \subseteq \mathbb{R}^d$, possibly sample path
+dependent, such that $J_n \in \mathcal{K}$ for all $n \ge 0$. Further, $\mathcal{K}$ can be chosen such that
+the ``tracking solution'' of $\dot{x}(t) \in \tilde{T}J(t) - J(t)$ is also inside $\mathcal{K}$,
+asymptotically.
+It follows that the conditions of the above stated theorem are satisfied, hence every limit point of
+(\ref{avi_avi}) is an equilibrium point of $\tilde{T}J - J$. In other words, 
+$J_n \to \left \{J \mid \lVert TJ - J \rVert_\nu \le \epsilon \right\}$.
+\end{proof}
+\begin{remark}
+ \label{avi_remark}
+As the bound on the approximation errors decreases, the size of the limiting set of the corresponding approximate
+value iteration given by (\ref{avi_avi}) also decreases.
+Specifically, as $\epsilon \downarrow 0$, $\left \{J \mid \lVert TJ - J \rVert_\nu \le \epsilon \right\}
+\downarrow J^*$.
+ \end{remark}
+\subsection{Approximation errors bounded in the weighted p-norm sense} \label{sec_avi1}
+The approximation errors encountered hitherto in this section are bounded in the weighted 
+max-norm sense.
+As stated earlier, these errors are often a consequence of approximation operators
+that are used to counter \textit{Bellman's curse of dimensionality}. In a model-free setting, typically
+one is given data of the form $(x_n, v_n)$, where $v_n$s are unbiased estimates of 
+the objective function at $x_n$'s. Note that the role
+of an approximation operator may be played by a supervised learning algorithm. This algorithm would
+return a good fit $g$ from within a class of functions $\mathcal{T}$. The objective for these algorithms
+would be to minimize the approximation errors. Previously, we considered approximation
+operators that minimize errors in the weighted max-norm sense. 
+\textit{This is relevant to large-scale applications where it may not be
+possible to approximate over all the states uniformly.}
+\paragraph{}
+In many applications the approximation operators work by minimizing the errors in the $\ell_1$ and
+$\ell_2$ norms, see Munos \cite{munos} for details. In this section, we consider the general case
+of approximation errors being bounded in the weighted p-norm sense. Specifically, we analyze
+(\ref{avi_avi}) with $\lVert \epsilon_n \rVert_{\omega, p} \le \epsilon$ for some fixed $\epsilon > 0$.
+Recall the definition of the weighted p-norm of a
+given $z \in \mathbb{R}^d$:
+\[
+ \lVert z \rVert_{\omega,p} = \left( \sum \limits_{i=1}^d |\omega_i z_i|^p \right)^{1/p},
+\]
+where $\omega = (\omega_1, \ldots, \omega_d)$ is such that $\omega_i > 0$, $1 \le i \le d$
+and $p \ge 1$. 
+\paragraph{}
+Recall that
+the Bellman operator $T$ is contractive with respect to $\lVert \cdotp \rVert_\nu$. First, we establish
+the relationship between the weighted p-norm and the weighted max-norm. Again, fix $z \in \mathbb{R}^d$.
+We have that $|z_i| \le \nu_{max} \ \lVert z \rVert_\nu$, where $\nu_{max}$ is defined in Lemma~\ref{avi_cc}.
+Hence $\lVert z \rVert_{\omega,p} \le (d \ \omega_{max}\ \nu_{max}) \lVert z \rVert_\nu$,
+where $\omega_{max} := \max \ \{\omega_i \mid 1 \le i \le d\}$. Similarly, 
+$\lVert z \rVert_\nu \le \frac{\lVert z \rVert_{\omega,p}}{\nu_{min}}$. We have the following inequality:
+\begin{equation}
+ \label{avi_pnorms}
+ \nu_{min} \lVert z \rVert_\nu \le \lVert z \rVert_{\omega,p} \le (d \ \omega_{max}\ \nu_{max}) \lVert z \rVert_\nu.
+\end{equation}
+In this section we consider the following stochastic iterative AVI scheme:
+\begin{equation}
+ \label{avi_avi1}
+ J_{n+1} = J_n + a(n) \left(TJ_n - J_n + \tilde{\epsilon}_n + M_{n+1} \right)
+\end{equation}
+where $\lVert \tilde{\epsilon}_n \rVert_{\omega, p} \le \epsilon$ for all $n \ge 0$. If we define
+$\overline{T}J  := TJ + \{x \mid \lVert x \rVert_{\omega, p} \le \epsilon\}$, as in the previous
+subsection, we can show that $\overline{T}$ is a Marchaud map. Further, we may state an identical
+theorem for (\ref{avi_avi1}).
+\begin{theorem}
+ \label{avi_main1}
+ Under $(AV1)$-$(AV3)$, $(A2)$, and $(A3a)$, (\ref{avi_avi1}) is stable and converges to
+  some point in $\left \{J \mid \lVert TJ - J \rVert_{\omega, p} \le \epsilon \right\}$, where $\epsilon$
+  is the norm-bound on the approximation errors.
+\end{theorem}
+\begin{proof}
+ As in the proof of Theorem~\ref{avi_main}, we need to show that (\ref{avi_avi1}) satisfies $(A5)$.
+ It follows from (\ref{avi_pnorms}) that 
+ \[
+  \lVert \epsilon_n \rVert_{\omega, p} \le \epsilon \implies
+  \lVert \epsilon_n \rVert_{\nu} \le \epsilon /\nu_{min}.
+ \]
+We are now in the setting of Theorem~\ref{avi_main}, and it follows that (\ref{avi_avi1})
+satisfies $(A5)$. With regards to convergence, using similar arguments, we can show that
+(\ref{avi_avi1}) converges to the set of equilibrium points of $\overline{T}J - J$
+given by $\{J \mid \lVert \overline{T}J - J \rVert_{\omega, p} \le \epsilon \}$. As in the previous
+subsection,
+$\{J \mid \lVert \overline{T}J - J \rVert_{\omega, p} \le \epsilon \} \downarrow J^*$
+as $\epsilon \downarrow 0$.
+\end{proof}
+\subsection{Comparison with previous literature}\label{avi_munos}
+% An important contribution in understanding the convergence of approximate value iteration (AVI) methods
+% was due to Munos in 2005 \cite{munos}. This paper analyzed AVI methods
+% (for the infinite horizon discounted case problem) wherein the approximation errors
+% are bounded in the weighted p-norm sense, a significant improvement over \cite{BertsekasBook} that only considered
+% max norms. In \cite{munos}, convergence is shown under one of the 
+% following two assumptions on transition probabilities. Let $\mu$ be a distribution over the state space.
+% \begin{itemize}
+%  \item[(MA1)] $\exists C > 0$ such that for all states $x$, $y$ and policy $\pi$, we have
+%  $P^\pi (x,y) \le C \mu(y)$.
+%  \item[(MA2)] $\exists$ a distribution $\rho$ and co-efficients $c(m)$ $\forall m \ge 1$ and
+%  policies $\pi_1, \ldots, \pi_m$ such that
+%  $\rho P^{\pi_1}\ldots P^{\pi_m} \le c(m) \mu$. The smoothness constand $C$ of the discounted future state
+%  distribution is given by $C := (1-\gamma)^2 \sum \limits_{m \ge 1} m \gamma^{m-1} c(m)$, where $\gamma$
+%  is the discount factor.
+% \end{itemize}
+% As stated in \cite{munos}, $(MA1)$ ensures the smoothness of transition probabilities while $(MA2)$
+% ensures the smoothness of future state distributions. On the other hand,
+% we have shown convergence of the stochastic
+% approximation counterpart without imposing any restrictions on transition probabilities. Instead we require
+% that $J^*$ be the unique globally asymptotic stable equilibrium of $\dot{J}(t) = TJ(t)-J(t)$,
+% where $T$ is the Bellman operator. Since $J^*$ is the unique solution to the equation $TJ=J$, it is
+% natural to expect that the aforementioned requirement holds true.
+% An important aspect of our framework is that we allow for general ``operational noise''. This is
+% modelled as a Martingale difference sequence. It is worth noting that our analysis works for both
+% stochastic shortest path and infinite horizon discounted case problems.
+% 
+% Value iteration is an important reinforcement learning
+% algorithm. As stated in Section~\ref{sec_intro}, in case of large scale problems, AVI methods are used to
+% obtain suboptimal solutions. Showing that the stochastic approximation counterpart is bounded almost surely
+% can be hard in many reinforcement learning applications. Another noteworthy contribution of this paper
+% is in the development of easily verifiable sufficient conditions for the almost sure boundedness of
+% AVI methods.
+
+An important contribution in understanding the convergence of approximate value iteration (AVI) methods
+has been due to Munos in 2005 \cite{munos}. This paper analyzed AVI methods
+(for the infinite horizon discounted case problem) wherein the approximation errors
+are bounded in the weighted p-norm sense, a significant improvement over \cite{BertsekasBook} that only considered
+max norms. However, in \cite{munos}, the basic procedure considered is a numerical AVI scheme where complete
+knowledge of the `system model', i.e., the transition probabilities is assumed. In addition, in \cite{munos}, 
+ convergence is shown under one of the 
+following two assumptions on transition probabilities. Let $\mu$ be a distribution over the state space.
+\begin{itemize}
+ \item[(MA1)] $\exists C > 0$ such that for all states $x$, $y$ and policy $\pi$, we have
+ $P^\pi (x,y) \le C \mu(y)$.
+ \item[(MA2)] $\exists$ a distribution $\rho$ and co-efficients $c(m)$ $\forall m \ge 1$ and
+ policies $\pi_1, \ldots, \pi_m$ such that
+ $\rho P^{\pi_1}\ldots P^{\pi_m} \le c(m) \mu$. The smoothness constand $C$ of the discounted future state
+ distribution is given by $C := (1-\gamma)^2 \sum \limits_{m \ge 1} m \gamma^{m-1} c(m)$, where $\gamma$
+ is the discount factor.
+\end{itemize}
+These smoothness requirements on the transition probabilities are strong and will not hold 
+for a large class of systems.
+
+On the contrary, we consider a stochastic approximation counterpart of AVI that involves an `operational noise'
+component in addition, that we model as a general martingale difference noise sequence. An algorithm such as
+(\ref{avi_avi}) arises for instance in the Q-learning procedure (where the Bellman operator $T$ is in fact
+the Q-Bellman operator) or when the same is a Bellman operator corresponding to a given stationary policy,
+see Chapter 5 of \cite{BertsekasBook}.
+In such a model, no information is assumed known about the system transition probabilities, i.e., the setting in such a
+case is `model-free'. Thus our convergence analysis works in the case of AVI schemes
+for which (a) information on the transition probabilities
+is not known, (b) no such restrictions as (MA1) or (MA2) are imposed on the transition probabilities, and (c) there
+is a measurement error (albeit bounded) that may arise for instance from the use of function approximation.
+We require that $J^*$ be the unique globally asymptotically stable equilibrium of $\dot{J}(t) = TJ(t)-J(t)$,
+where $T$ is the Bellman operator that is a contraction map. Since $J^*$ is the unique solution to the equation $TJ=J$, it is
+natural to expect that the aforementioned requirement holds true.
+
+\textit{It is also important to note that our analysis works for both
+stochastic shortest path and infinite horizon discounted cost problems.}
+
+Value iteration is an important reinforcement learning
+algorithm. As stated in Section~\ref{sec_intro}, in the case of large-scale problems, 
+AVI methods are used to
+obtain suboptimal solutions (arising from say the use of function approximation techniques). 
+Showing that the stochastic approximation counterpart is bounded almost surely
+can be hard in many reinforcement learning applications. 
+Thus, one of the most significant contributions of this paper,
+not addressed in previous literature, lies in the development of easily verifiable sufficient 
+conditions for the almost sure boundedness of AVI methods involving set-valued dynamics. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application: Finding fixed points of set-valued maps} \label{sec_fp}
+In Section~\ref{sec_avi} we showed that the stochastic iterative AVI given by (\ref{avi_avi}) converges to a vector
+that belongs to a small neighborhood of the optimal cost-to-go vector $J^*$. To do this we started by
+observing
+that the fixed points of the perturbed Bellman operator belong to a small neighborhood of $J^*$
+as a consequence of the upper semicontinuity of attractor sets. Then we showed that (\ref{avi_avi})
+converges to a fixed point of the perturbed Bellman operator, thereby showing that 
+(\ref{avi_avi}) converges to a small neighborhood of $J^*$. In this section, we generalize the ideas of
+Section~\ref{sec_avi} to develop and analyze a SAA for finding fixed points of contractive set-valued maps.
+
+Suppose that we are given a set-valued map 
+$T: \mathbb{R}^d \to \{\text{subsets of }\mathbb{R}^d\}$. We present sufficient conditions under which
+the following stochastic approximation algorithm is bounded a.s. and converges to a fixed point of $T$:
+\begin{equation}
+ \label{fp_fp}
+ x_{n+1} = x_n + a(n) \left[ y_n + M_{n+1} \right],
+\end{equation}
+where\\
+(ii) $y_n \in Tx_n - x_n$ for all $n \ge 0$. \\
+(ii) $\{a(n)\}_{n \ge 0}$ is the given step-size sequence satisfying $(A2)$.\\
+(iii) $\{M_{n+1}\}_{n \ge 0}$ is the Martingale difference noise sequence satisfying $(A3a)$.
+
+\textit{\textbf{Definitions:}} Given a metric space $(\mathbb{R}^d, \rho)$, we define the Hausdorff metric with respect to $\rho$
+as follows:
+\begin{equation}
+ \nonumber
+ H_\rho(A,B) := \left(\min \limits_{x \in A} \rho(x, B) \right) \vee \left(\min \limits_{y \in B} \rho(y, A)
+ \right),
+\end{equation}
+where $A, B \subset \mathbb{R}^d$ and
+$\rho(u,C) := \min \{\rho(u,v) \mid v \in C\}$ for any $u \in \mathbb{R}^d$ and $C \subseteq \mathbb{R}^d$.
+We call a set-valued map $T$ as contractive if and only if $H_\rho(Tx, Ty) \le \ \alpha \rho(x,y)$,
+where $x, y \in \mathbb{R}^d$ and $0 < \alpha < 1$. We say that $T$ is of \textit{bounded diameter}
+if and only if $diam(Tx) \le D$, where $x \in \mathbb{R}^d$ and $0 < D < \infty$. We define
+$diam(A) := \sup \{ \rho(z_1, z_2) \mid z_1, z_2 \in A\}$ for any $A \subset \mathbb{R}^d$.
+We impose the following restrictions on (\ref{fp_fp}):
+\begin{itemize}
+ \item[(AF1)] $T$ is a Marchaud map that is of \textit{bounded diameter} and \textit{contractive} 
+ with respect to some metric $\rho$.
+ \item[(AF2)] The metric $\rho$ is such that $\lVert x - y \rVert \le \ C\ \rho(x,y)$ for $x, y \in \mathbb{R}^d$, 
+ $C>0$.
+ \item[(AF3)] Let $F := \{x \mid x \in Tx\}$ denote the set of fixed points of $T$. There exists a
+ compact subset $F' \subseteq F$ along with a strongly positive invariant bounded open neighborhood.
+ \begin{center} \textit{OR} \end{center}
+ $F$ is the unique global attractor of $\dot{x}(t) \in Tx(t) - x(t)$.
+\end{itemize}
+Since $T$ is assumed to be contractive with respect to $\rho$, it follows from \textit{Theorem 5}
+of Nadler \cite{nadler} that $T$ has at least one fixed point. Assumption $(AF2)$ is readily satisfied
+by the popular metric norms such as the weighted p-norms and the weighted max-norms among others.
+Assumption $(AF3)$ is imposed to ensure that (\ref{fp_fp}) satisfies $(A4b)$ or $(A4c)$. Specifically, $(AF3)$
+is imposed to ensure the existence of an inward directing set associated with 
+$\dot{x}(t) \in Tx(t) - x(t)$, see Proposition~\ref{sa_inward} for details. In other words, we can find 
+bounded open sets $\mathcal{C}_F$ and $\mathcal{B}_F$ such that $\mathcal{C}_F$ is inward directing and
+$\overline{\mathcal{B}_F} \subset \mathcal{C}_F$.
+\paragraph{}
+As in Section~\ref{sec_avi}, we compare (\ref{fp_fp}) with it's projective counterpart given by:
+\begin{equation}
+ \label{fp_proj}
+ \begin{split}
+  &\tilde{x}_{n+1} = \hat{x}_n + a(n) \left(y_n + M_{n+1}\right),\\
+ &\hat{x}_{n+1} \in \pro_{\mathcal{B}_F, \mathcal{C}_F} (\tilde{x}_{n+1}),
+ \end{split}
+\end{equation}
+where $y_n \in T\hat{x}_n - \hat{x}_n$, $\{ M_{n+1}\}_{n \ge 0}$ is identical for both (\ref{fp_fp})
+and (\ref{fp_proj}) and $\pro_{\mathcal{B}_F, \mathcal{C}_F} (\cdotp)$ is the projection operator
+defined at the beginning of Section~\ref{sec_analysis}. The analysis of the above projective
+scheme proceeds in an identical manner as in Section~\ref{sec_analysis}. Specifically, we may show that
+every limit point of the projective scheme (\ref{fp_proj}) belongs to $\overline{\mathcal{B}_F}$.
+The following theorem is immediate.
+\begin{theorem}
+ \label{fp_main}
+ Under $(AF1)$-$(AF3)$ and $(A3a)$, the iterates given by (\ref{fp_fp}) are bounded almost surely. Further,
+ any limit point of (\ref{fp_fp}) (as $n \to \infty$) is a fixed point of the set-valued map $T$.
+\end{theorem}
+\begin{proof}
+ The proof of this theorem proceeds in a similar manner to that of Theorem~\ref{avi_main}.
+ We only provide an outline here to avoid repetition. We begin by showing that
+ (\ref{fp_fp}) is bounded almost surely (stable) by comparing it to (\ref{fp_proj}). Since the limit
+ points of (\ref{fp_proj}) belong to $\overline{\mathcal{B}_F}$, there exists $N$, possibly sample
+ path dependent, such that $\hat{x}_n \in \overline{\mathcal{C}_F}$ for all $n \ge N$. For $k \ge 0$
+ we have the following inequality:
+ \[
+  \rho(x_{n+k+1}, \hat{x}_{n+k+1}) \le (1 - a(n+k)) \rho(x_{n+k}, \hat{x}_{n+k}) + a(n+k)
+  \left( 2D + H_\rho(Tx_{n+k}, T\hat{x}_{n+k})\right),
+ \]
+where $diam(Tx) \le D$ for every $x \in \mathbb{R}^d$. Recall that
+$0 < \alpha < 1$ is the contraction parameter of the set-valued map $T$. We consider two possible cases.
+\\
+\textit{\textbf{Case 1. $2D \le (1-\alpha) \rho(x_{n+k}, \hat{x}_{n+k})$ :}}
+In this case, it can be shown that
+\[
+ \rho(x_{n+k+1}, \hat{x}_{n+k+1}) \le \rho(x_{n+k}, \hat{x}_{n+k}).
+\]
+\textit{\textbf{Case 2. $2D > (1-\alpha) \rho(x_{n+k}, \hat{x}_{n+k})$ :}}
+In this case, it can be shown that
+\[
+ \rho(x_{n+k+1}, \hat{x}_{n+k+1}) \le \frac{2D}{1-\alpha}.
+\]
+We conclude the following:
+\[
+  \rho(x_n, \hat{x}_n) \le \left( \frac{2D}{1-\alpha} \right) \vee \rho(x_N, \hat{x}_N)  ,\ n \ge N.
+\]
+It follows from the above inequality and $(AF2)$ that (\ref{fp_fp}) satisfies assumption $(A5)$. 
+Hence, we get that $\{x_n\}_{n \ge 0}$ is bounded almost surely (stable).
+
+Since the iterates are stable, it follows from \textit{[Theorem 2, Chapter 6,\cite{Aubin}]} that
+every limit point of (\ref{fp_fp}) is an equilibrium point of the set-valued map $x \mapsto Tx - x$.
+In other words, if $x^*$ is a limit point of (\ref{fp_fp}), then $0 \in Tx^* -  x^*$, \textit{i.e.,}
+$x^* \in Tx^*$. Hence we have shown that every limit point of (\ref{fp_fp}) is a fixed point of the set-valued
+map $T$.
+\end{proof}
+\begin{remark}
+ \label{fp_remark}
+ It is assumed that $T$ is of bounded diameter, see $(AF1)$. The primary task of this assumption
+ is in showing the almost sure boundedness of (\ref{fp_fp}). Specifically, it is used to show that
+ $(A5)$ is satisfied. Depending on the problem at hand, one may wish to do away with this 
+ ``bounded diameter'' assumption. For example, we may have $\sup \limits_{n \ge 0} diam(Tx_n) < \infty$
+ a.s., then the bounded diameter assumption can be dispensed with.
+ 
+ Since $T$ is Marchaud, it is point-wise bounded, \textit{i.e.,}
+ $\sup \limits_{z \in Tx} \lVert z \rVert \le K(1 + \lVert x \rVert)$, where $K >0$. In other words,
+ $diam(Tx) \le 2 K(1 + \lVert x \rVert)$. In theory, the point-wise boundedness of $T$ allows for 
+ unbounded diameters, \textit{i.e.,} $diam(Tx) \uparrow \infty$ as $\lVert x \rVert \uparrow \infty$.
+ Our bounded diameter assumption prevents this scenario from happening. In applications that use
+ ``approximate operators'', it is often reasonable to assume that the errors (due to approximations) are bounded. Then 
+ the ``associated set-valued map'' is naturally of bounded diameter. The reader is referred to
+ Section~\ref{sec_avi} for an example of this setting.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A note on assumption $(A5)$} \label{sec_note}
+In this section, we investigate the following question:
+Under what conditions is the stability of a SAA guaranteed,
+provided it is known a priori that the corresponding projective scheme is convergent. In
+\textit{Lemma 2.1} of Abounadi et. al. \cite{abounadi} this question is answered for simple iterative schemes.
+Here, we make an investigation for the setting of SAAs with set-valued mean-fields. We prove the following
+lemma.
+\begin{lemma}
+ \label{note_lemma}
+ Let $\mathcal{B}$ and $\mathcal{C}$ be open bounded subsets of $\mathbb{R}^d$ such that $\overline{\mathcal{B}}
+ \subset \mathcal{C}$. Consider the algorithm
+ \[
+  x_{n+1} \in G_n (x_n, \xi_n), \ n \ge 0.
+ \]
+We make the following assumptions:
+\begin{enumerate}
+ \item $\{\xi_n\}_{n \ge 0}$ is a random sequence that constitutes noise.
+ \item $G_n$ is of bounded diameter and contractive (in the first co-ordinate with second co-ordinate fixed) 
+ with respect to some metric $\rho$, for $n \ge 0$. In other
+ words, $H_\rho(G_n(x, \xi), G_n(y, \xi)) \le \alpha \rho(x,y)$ for some $0 < \alpha < 1$ and
+ $\sup \limits_{u,v \in G_n(x, \xi)} \rho(u,v) \le D$, where $0 < D < \infty$ and $x \in \mathbb{R}^d$.
+ \item There exists $C >0$ such that $\lVert x - y \rVert \le C \ \rho(x,y)$.
+ \item The sequence $\{\tilde{x}_n\}_{n \ge 0}$ generated by 
+ \[
+  \tilde{x}_{n+1} \in G_n \left(\pro_{\mathcal{B},\mathcal{C}}(\tilde{x}_n), \xi_n \right)
+ \]
+converges to some vector $x^* \in \mathcal{B}$.
+\end{enumerate}
+Then $\{x_n\}_{n \ge 0}$ is bounded almost surely.
+\end{lemma}
+\begin{proof}
+ Since $\tilde{x}_n \to x^*$ as $n \to \infty$, there exists $N$ such that $\tilde{x}_n \in \mathcal{B}$
+ for all $n \ge N$. For $k \ge 0$ we have the following:
+ \[
+  \rho(x_{n+k+1}, \tilde{x}_{n+k+1}) \le 2D + \rho(x_{n+k}, \tilde{x}_{n+k}).
+ \]
+The details of the above inequality are identical to the inequality given by (\ref{avi_2epsilon}).
+Unfolding the right hand side down to stage $n$ we get the following:
+\[
+ \rho(x_{n+k+1}, \tilde{x}_{n+k+1}) \le \left(1 + \alpha + \ldots + \alpha ^k \right)\ 2D + \rho(x_{n}, \tilde{x}_{n}),
+\]
+\[
+ \rho(x_{n+k+1}, \tilde{x}_{n+k+1}) \le  \frac{2D}{1-\alpha} + \rho(x_{n}, \tilde{x}_{n}).
+\]
+In other words, we have
+\[
+ \sup \limits_{n \ge N+1} \rho(x_{n}, \tilde{x}_{n}) \le \frac{2D}{1-\alpha} + \rho(x_{N}, \tilde{x}_{N}).
+\]
+Hence we have that $\{x_n\}_{n \ge 0}$ is bounded almost surely.
+\end{proof}
+\section{Conclusions}
+\label{sec_conclusions}
+In this paper we presented a Lyapunov function based stability criterion for SAAs
+with set-valued mean-fields. Specifically three different yet overlapping sets of sufficient conditions were presented
+for stability and convergence of SAAs with set-valued mean-fields. As an important application
+of our framework, we show that AVI methods can be analyzed under significantly relaxed set of assumptions than
+previous literature. Specifically, we showed that the stochastic iterative AVI is bounded
+almost surely and converges to a vector belonging to a small neighborhood of the optimal $J^*$. Further,
+we showed that this neighborhood depends on the errors made by the approximation operators. Finally, we
+developed and analyzed a SAA for finding fixed points of contractive set-valued maps. To the best of our knowledge
+ours is the first algorithm for finding fixed points of set-valued maps.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{TTforDI}
+\end{document}

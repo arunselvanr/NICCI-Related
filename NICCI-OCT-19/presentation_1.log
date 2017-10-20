@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.25)  19 OCT 2017 06:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.25)  19 OCT 2017 21:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1005,7 +1005,7 @@ Package pdftex.def Info: upb.png used on input line 119.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [2
 
-] <CSRM.pdf, id=114, 583.17876pt x 198.7425pt>
+] <CSRM.pdf, id=113, 583.17876pt x 198.7425pt>
 File: CSRM.pdf Graphic file (type pdf)
 
 <use CSRM.pdf>
@@ -1020,7 +1020,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 149.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<ncs3.jpg, id=115, 501.875pt x 371.3875pt>
+<ncs3.jpg, id=114, 501.875pt x 371.3875pt>
 File: ncs3.jpg Graphic file (type jpg)
  <use ncs3.jpg>
 Package pdftex.def Info: ncs3.jpg used on input line 149.
@@ -1083,7 +1083,7 @@ Package pdftex.def Info: upb.png used on input line 236.
  [7
 
 ]
-<rewards-correlated.png, id=363, 578.16pt x 472.164pt>
+<rewards-correlated.png, id=362, 578.16pt x 472.164pt>
 File: rewards-correlated.png Graphic file (type png)
 
 <use rewards-correlated.png>
@@ -1122,7 +1122,7 @@ Package pdftex.def Info: upb.png used on input line 271.
  [10
 
 ]
-<clc.png, id=443, 287.6346pt x 173.9298pt>
+<clc.png, id=442, 287.6346pt x 173.9298pt>
 File: clc.png Graphic file (type png)
  <use clc.png>
 Package pdftex.def Info: clc.png used on input line 285.
@@ -1138,7 +1138,7 @@ Package pdftex.def Info: upb.png used on input line 285.
 (pdftex.def)             Requested size: 71.13188pt x 18.69392pt.
  [11
 
- <./clc.png>] <timing2.png, id=471, 337.26pt x 123.8226pt>
+ <./clc.png>] <timing2.png, id=470, 337.26pt x 123.8226pt>
 File: timing2.png Graphic file (type png)
 
 <use timing2.png>
@@ -1324,7 +1324,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 717.
 Here is how much of TeX's memory you used:
  19936 strings out of 494953
  395473 string characters out of 6180977
- 454879 words of memory out of 5000000
+ 454801 words of memory out of 5000000
  22692 multiletter control sequences out of 15000+600000
  16730 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1349,7 +1349,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentation_1.pdf (24 pages, 850544 bytes).
+Output written on presentation_1.pdf (24 pages, 848736 bytes).
 PDF statistics:
  925 PDF objects out of 1000 (max. 8388607)
  798 compressed objects within 8 object streams

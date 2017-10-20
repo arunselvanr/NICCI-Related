@@ -89,19 +89,19 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[NICCI]{Network aware control and control aware network} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[NICCI]{NICCI: Network-Informed Control -- Control-Informed Network} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author[Shortname]{Full Name %\\ \&
+\author[]{ %\\ \&
  } % Your name
-\institute[Paderborn University] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
 Dept. of Electrical Engineering and Information Technology, \\
 Paderborn University \\ % Your institution for the title page
-\textit{something@upb.de}\\
+\textit{arunselvan.ramaswamy@upb.de}\\
 %\vspace*{.1in}
 %Whose involved
 }
-\date{\today} % Date, can be changed to a custom date
+\date{October 19, 2017} % Date, can be changed to a custom date
 % \usebackgroundtemplate{%
 % \tikz[overlay,remember picture] \node[opacity=0.2, at=(current page.center)] {
 %    \includegraphics[height=.3\paperheight,width=.2\paperwidth]{upb.jpg}};
@@ -126,8 +126,8 @@ Paderborn University \\ % Your institution for the title page
 \begin{column}{0.5\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{ncs1}
-\caption{{\footnotesize Source: \href{https://heemels.tue.nl/research/networked-control}{www.heemels.tue.nl}}} 
+\includegraphics[width=0.8\textwidth]{CSRM.pdf}
+% \caption{{\footnotesize Source: \href{https://heemels.tue.nl/research/networked-control}{www.heemels.tue.nl}}} 
 \label{fig1}
 \end{figure}
 \end{column}
@@ -141,7 +141,7 @@ Paderborn University \\ % Your institution for the title page
 \end{column}
 \end{columns}
 \begin{itemize}
- \item Large scale, modular, distributed systems.
+ \item Broad Goal: Holistic control of large-scale, modular, distributed systems.
  \item Components share resources such as communication channels, computational resources.
  \item Controllers use both local (immediate) and global (delayed) information.
  \item Controllers act asynchronously {\color{blue}(run on their own clocks)}.
@@ -152,14 +152,15 @@ Paderborn University \\ % Your institution for the title page
  \begin{itemize}
   \item Due to the large scale of systems being considered, resources such as communication
   channels and processors may be constrained.
-  \item We assume the existence of a radio resource manager (RRM) who is responsible 
-  for co-ordinating communication.
-  \item RRM is responsible for sequential decisions in regards to communication.
-  \item 'Quality of control' and 'RRM decisions' are mutually influential.
+  \item[]
+  \item RRM is responsible for ``sequential decision making'' with regards to communication.
+  \item `Quality of control' and `RRM decisions' are mutually influential.
   \item There may be other resource managers, eg. computational resources.
-  \item {\color{violet} Goal: Develop and analyze algorithms for distributed control of large-scale
-  systems (process and radio) under resource constraints.}
  \end{itemize}
+  \begin{block}
+   {\color{violet} Goal: Develop and analyze algorithms for distributed control of large-scale
+  systems (process and radio) under resource constraints.}
+  \end{block}
 \end{frame}
 % \begin{frame}
 %  \frametitle{Dynamic Programming and Optimal Control}
@@ -179,12 +180,12 @@ Paderborn University \\ % Your institution for the title page
 %  \end{itemize}
 %  \end{frame}
  
-\section{Radio Resource Management}
+\section{Chapter I: Radio Resource Management}
 \begin{frame}
 \centerline{\textbf{Chapter I: Radio Resource Management (RRM)}}
-\begin{center}
- Prof. Holger Karl
-\end{center}
+% \begin{center}
+%  Prof. Holger Karl
+% \end{center}
 
 \end{frame}
 \begin{frame}
@@ -215,14 +216,14 @@ Paderborn University \\ % Your institution for the title page
   \begin{itemize}
   \item Markov chain extracted from  Clark's model 
     \begin{itemize}
-    \item States correspond to SNR regions
-    \item which in turn correspond to
+    \item States correspond to Signal-to-noise ratio (SNR) regions
+    \item Which in turn correspond to
       Modulation/Coding Scheme (MCS) performance at negligible transmission error rate.
     \end{itemize}
     \item[]
   \item Under these assumptions: 
     \begin{itemize}
-    \item What is the \emph{time-limited capacity}, for an acceptable model prediction.
+    \item What is the \emph{time-limited capacity}, for an acceptable model prediction
       error?
       \begin{itemize}
       \item In a sense: Real-time version of outage capacity. 
@@ -233,9 +234,21 @@ Paderborn University \\ % Your institution for the title page
   \item Formulate as Markov reward (no.\ of bits that can be transmitted) model.
   \end{itemize}
 \end{frame}
+\begin{frame}
+  \frametitle{Time-limited capacity: First hints at results}
+  \begin{itemize}
+  \item What is the (normalized, per time slot) {\color{blue}available capacity}
+  for {\color{blue}different acceptable error rates} over {\color{blue}increasing number of time slots}?
+  \item \textbf{Observation}: Clear dependence on acceptable error rate. 
+  \end{itemize}
+  
+  \begin{center}
+    \includegraphics[width=0.6\columnwidth]{rewards-correlated}
+  \end{center}
+\end{frame}
 
 \begin{frame}
-  \frametitle{Time-limited capacity: Influencing factors}
+  \frametitle{Closing Remarks: Influencing factors in time-limited capacity}
   \begin{center}
     \begin{tikzpicture}[box/.style = {draw, minimum height=12mm,
         align=center}]
@@ -248,104 +261,77 @@ Paderborn University \\ % Your institution for the title page
     \end{tikzpicture}
   \end{center}
 \end{frame}
-
+\section{Chapter II: Output Feedback MPC with Scheduled Communications}
 \begin{frame}
-  \frametitle{Time-limited capacity: First hints at results}
-  \begin{itemize}
-    
-  \item Over increasing number of time slots 
-  \item What is the (normalized, per time slot) available capacity
-  \item For different acceptable error rates 
-  \item \textbf{Observation}: Rate of increase depends on acceptable error rate 
-  \end{itemize}
-  
-  \begin{center}
-    \includegraphics[width=0.6\columnwidth]{rewards-correlated}
-  \end{center}
-\end{frame}
-\section{Constrained MPCs}
-\begin{frame}
-\centerline{\textbf{Chapter II: Constrained MPCs given a communication schedule}
+\centerline{\textbf{Chapter II: Output Feedback MPC with Scheduled Communications}
 }
-\begin{center}
- Markus K\"{o}gel and Prof. Rolf Findeisen
-\end{center}
+% \begin{center}
+%  Markus K\"{o}gel and Prof. Rolf Findeisen
+% \end{center}
 \end{frame}
 \begin{frame}
- \frametitle{MPC under reliable communication schedule}
+ \frametitle{Motivation and setup}
  \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth, height = .25\textheight]{clc.png}
+\includegraphics[width=0.4\textwidth ]{clc.png}
 % \caption{{\footnotesize Source: \href{https://heemels.tue.nl/research/networked-control}{www.heemels.tue.nl}}} 
 % \label{fig1}
 \end{figure}
  \begin{itemize}
-  \item Dynamics: (i) Unknown but bounded uncertainties (ii) Discrete time linear systems (iii) noisy measurements.
-  \item Communications networks: (i) Reliable (ii) Single link available: either \textbf{to actuator} \textit{or}
-  \textbf{from sensor}.
-  \item Challenge: When/what/where to send/receive to maximize control performance.
+  \item Dynamics: (i) unknown, but bounded uncertainties, (ii) discrete time, linear systems, (iii) noisy measurements.
+  \item Communications networks: (i) reliable, (ii) limited communication. %, \textit{for example}  either \textbf{to actuator} \textit{or}   \textbf{from sensor}.
+  \item Challenge: When/what/where to send to maximize  performance.
  \end{itemize}
 \end{frame}
 \begin{frame}
-\frametitle{Different possible communication choices provided by the RRM}
-\vspace*{-.3in}
+\frametitle{Communication scheduling - basic idea} 
+
+\begin{itemize}\item \textbf{Toy example:}
+\begin{itemize}
+ \item   either sensor sends $y_k$ or controller sends $u_k$. 
+  \item[] If no data is received, then actuator uses $u_k = u_{k-1}$.
+	\item Question: when to sense and when to actuate? %Benefit of sending extra data? 
+ \end{itemize}
+
+	\item \textbf{
+  Solution approach to optimize communication:}
+	\begin{itemize}
+\item consider fixed communication schedule  
+\item compare  schedules, select the one with best  performance
+\end{itemize}	
+	Requires: Efficient performance evaluation, avoid controller tuning.
+\end{itemize}
+
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth, height = .25\textheight]{timing.png}
- \caption{{\footnotesize Fixed reliable communication schedule}} 
+\vspace*{-.2in}
+\includegraphics[width=0.7\textwidth ]{timing2.png}\\
+  {{\footnotesize Communication schedule}} 
 % \label{fig1}
-\end{figure}
-\vspace*{-.3in}
-\begin{itemize}
- \item What to communicate (how much data):
- \begin{itemize}
-  \item \textbf{Naive solution:} Sensors send $y_k$ while controllers send $u_k$.
-  \item[] If no data is received at time $k$, then the actuators use $u_k = 0$ or $u_k = u_{k-1}$.
- \end{itemize}
-  \begin{itemize}
-   \item \textbf{General Case:} Multiple measurements/ commands in each packet
-   \item[] (a) Piggy back old measurements, e.g., send $y_k$ and $y_{k-1}$ at $k$.
-   \item[] (b) Send input sequences, e.g., send $u_{k}$ and $u_{k+1}$ at $k$.
-  \end{itemize}
-  \item Requirement: Simple performance evaluation and avoid influence of tuning.
-\end{itemize}
+\end{figure} 
 \end{frame}
 \begin{frame}
- \frametitle{Exploit robust output feedback MPC}
- \begin{itemize}
-  \item We start with the basics of robust output feedback MPC.
-  \item \textbf{Framework:} (i) LTI system with bounded process noise, $x_{k+1} = A x_k + B u_k + w_k$,
-  where $x_k \in \mathbb{X}$, $u_k \in \mathbb{U}$ and $w_k \in \mathbb{W}$.\\
-  (ii) There exist constraints on $x_k$ and $u_k$.\\
-  (iii) Sensor measurements, bounded noise: $y_k = C x_k + v_k, \ v_k \in \mathbb{V}$.
-  \item[]
-  \item \textbf{Robust output feedback MPC:}
+ \frametitle{Problem setup and contribution  }
+ \begin{itemize} 
+  \item \textbf{Considered system class:} \\(i) LTI system with process noise, $x_{k+1} = A x_k + B u_k + w_k$,  $w_k \in \mathbb{W}$.\\
+  (ii) State and input constraints: $x_k\in\mathbb{X}$ and $u_k\in\mathbb{U}$.\\
+  (iii) Noisy measurements: $y_k = C x_k + v_k, \ v_k \in \mathbb{V}$.
+    \item \textbf{Robust output feedback MPC} (model predictive control):
   \begin{itemize}
-   \item \textbf{Tube approach:} Decompose dynamics into (a) \textbf{nominal system} (no noise) + MPC
-   and (b) \textbf{error systems + fixed linear controller}.
-   \item \textbf{Control objective:} \textbf{Worst case optimal set-point tracking:}
-   \begin{itemize}
-    \item Minimize back-off from constraints (set $\mathbb{Z}$) - tune ``tube controller''.
-   \end{itemize}
-  \end{itemize}
- \end{itemize}
-\end{frame}
-\begin{frame}
- \frametitle{Our contribution}
- \vspace*{-.3in}
- \begin{figure}
-\centering
-\includegraphics[width=0.5\textwidth, height = .3\textheight]{tubes.png}
-  \caption{{\footnotesize ``Economic performance'' $Z_k = F x_k + G u_k$}} 
-% \label{fig1}
-\end{figure}
-\vspace*{-.3in}
-\begin{itemize}
- \item Automated optimal controller design for a given communication schedule.
- \item Allows for comparison between different communication schedules.
- \item Guarantees on closed loop behavior (constraint satisfaction, robust stability).
- \item Computationally efficient.
+   \item \textbf{Tube approach:} Decompose dynamics into (a)  nominal system + MPC
+   and (b) error systems +  \textbf{ ``tube controller''}.
+   \item \textbf{Performance:} For example  worst case optimal set-point tracking: 
+  \end{itemize}  
+	$\Rightarrow$    ``Minimize''  distance from optimality - tune ``tube controller''! 
+\item  \textbf{Contribution:}
+\begin{itemize}  
+\item 
+Automated, efficient optimal controller design  for given schedule
+ \item Allows for comparison between different schedules.
+ \item Guarantees on closed loop behavior (constraint satisfaction, stability). 
 \end{itemize}
+\end{itemize}
+ 
 
 \end{frame}
 
@@ -371,12 +357,12 @@ Paderborn University \\ % Your institution for the title page
 % \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \section{Getting back to distributed control of large-scale systems}
-\section{Reinforcement Learning}
+\section{Chapter III: Reinforcement Learning Approach}
 \begin{frame}
-\centerline{\textbf{Chapter III: Reinforcement Learning}}
-\begin{center}
- Arun Ramaswamy and Prof. Daniel E. Quevedo
-\end{center}
+\centerline{\textbf{Chapter III: Reinforcement Learning Approach}}
+% \begin{center}
+%  Arun Ramaswamy and Prof. Daniel E. Quevedo
+% \end{center}
 
 \end{frame}
 \begin{frame}
@@ -398,14 +384,14 @@ Paderborn University \\ % Your institution for the title page
 \end{frame}
 
 \begin{frame}
-  \frametitle{Motivation}
+  \frametitle{Motivation: Dynamic programming approach}
   \begin{itemize}
   \item {\color{blue} Develop and analyze approximate, asynchronous value iteration and 
   policy gradient algorithms}.
 %   \item Consider a re-engineering of Value Iteration and Policy Gradient Descent to solve our problems.
   \item Value iteration is given by $J_{n+1} = T J_n$, where
   $TJ(i) := \min \limits_{\pi} E_\pi \left[ g(i,\pi(i),j)+ J(j) \right]$ is the Bellman operator.
-  \item We mutate it's stochastic iterative counterpart:
+  \item We mutate its stochastic iterative counterpart:
    \[
     {\color{violet}J_{n+1} = J_{n} + a(n) \left( TJ_n - J_n + M_{n+1}\right).}
    \]
@@ -414,7 +400,7 @@ Paderborn University \\ % Your institution for the title page
    {\color{violet}\theta_{n+1} = \theta_n  - a(n) \left[ \nabla_\theta \pi(\theta) + M_{n+1} \right].}
    \]
    \item {\color{blue}Summary}: Re-engineer for large-scale distributed asynchronous systems
-   with lossy delay prone communication systems.
+   with lossy, delay-prone communication systems.
   \end{itemize}
  \end{frame}
 % \begin{frame}
@@ -437,7 +423,7 @@ Paderborn University \\ % Your institution for the title page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Approximate asynchronous Value Iteration}
+% \section{Approximate asynchronous Value Iteration}
 \begin{frame}
  \frametitle{Approximate asynchronous Value Iteration}
  \begin{block}{Re-engineered value iteration algorithm} {\footnotesize
@@ -448,7 +434,7 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 \begin{itemize}
 \item $\nu(i,n)$ is the number of times that agent $i$ was active till time $n$.
  \item $Y_n \subseteq \{1, \ldots, d\}$ denotes the active agents at time $n$.
- \item $0 \le \tau_{ij}(n) \le n$. Delay faced by {\color{blue}agent j} in receiving information from 
+ \item $0 \le \tau_{ij}(n) \le n$. Delay faced by {\color{blue}agent j}, at time $n$, in receiving information from 
  {\color{blue}agent i}.
  \item $\mathcal{A}$ is the approximation operator {\color{orange} 
  (obtained as a consequence of a supervised learning algorithm)}.
@@ -473,12 +459,15 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 % \item Will affect the ``$Y_n$-process'' and the time delays $\tau_{ij}(n)$. 
 % \end{itemize}
 % \end{frame}
-\section{Approximate asynchronous Policy Gradient Descent}
+% \section{Approximate asynchronous Policy Gradient Descent (AAPGD)}
 \begin{frame}
- \frametitle{Approximate asynchronous Policy Gradient Descent}
+ \frametitle{Approximate asynchronous Policy Gradient Descent (AAPGD)}
  \begin{itemize}
   \item Basic idea of PGD is the existence of a parameterization $\pi(\theta)$ 
-  {\color{purple}(policy objective function)}, Sutton et. al. \cite{p9}. 
+  {\color{purple}(policy objective function)}, Sutton et. al. \footnote{
+  {\footnotesize \color{purple} R.S. Sutton et al. "Policy gradient methods for reinforcement learning with function approximation." 
+ Advances in neural information processing systems. 2000.}
+  }. 
   The goal is to find
   a local minimizer $\hat{\theta}$.
   \end{itemize}
@@ -494,7 +483,7 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
    (simultaneous perturbations stochastic approximations).
    \item In the above equation, we may replace the {\color{purple}gradient terms} with {\color{purple} sub-gradients}, 
    our analysis still carries through, verbatim.
-    \item {\color{purple}While AAVI is offline, AAPGD is online}.
+    \item {\color{purple}While approximate asynchronous value iteration is offline, AAPGD is online}.
   \end{itemize}
 \end{frame}
 % \begin{frame}
@@ -611,7 +600,7 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Our contribution}
+% \section{Our contribution}
 \begin{frame}
  \frametitle{Our contribution}
  \begin{itemize}
@@ -626,7 +615,11 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
   {\color{purple}$\{J \mid \lVert TJ - J \rVert_{\omega, p} \le \epsilon \}$} is the limiting set of the
   re-engineered value iteration scheme.
 \item Stability ($\sup \limits_{n \ge 0} \lVert x_n \rVert < \infty$ a.s.) is always a concern in approximate dynamic programming, reinforcement learning approaches.
-  \item Our stability conditions are Lyapunov function based, extending \cite{p}.
+  \item Our stability conditions are Lyapunov function based, extending Ramaswamy and Bhatnagar
+  \footnote{{\color{purple} \footnotesize A. Ramaswamy and S. Bhatnagar (2017).
+ Conditions for Stability and Convergence of
+Set-Valued Stochastic Approximations: Applications to Approximate Value and Fixed
+point Iterations with Noise. Submitted in September, 2017.}}
  \end{itemize}
 \end{frame}
 \section{Summary}
@@ -635,9 +628,11 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
  \begin{itemize}
  \item We studied the Markov reward model for communication networks, currently being used in ML
  approaches.
- \item Constrained MPCs that allow for comparison between given communication schedules.
+ \item[]
+ \item Output feedback MPCs that allow for comparison between given communication schedules.
+ \item[]
  \item Value iteration and policy gradient algorithms, re-engineered for our setting.
- \item Proofs of convergence and boundedness of the algorithm.
+%  \item Proofs of convergence and boundedness of the algorithm.
  \end{itemize}
 \end{frame}
 
@@ -645,15 +640,23 @@ J_{n - \tau_{di}(n)}(d))(i) - J_n(i) + M_{n+1}(i) \right)$.}
 \begin{frame}
  \frametitle{Current and Future Work}
  \begin{itemize}
-  \item RRM-side: Use Markovian rewards (previously studied) to develop multi-arm bandit based
+  \item RRM-side: 
+  \begin{itemize}
+   \item Use Markovian rewards (previously studied) to develop multi-arm bandit based
 	algorithms.
-  \item RRM-side: For more general rewards we are currently looking at reinforcement learning techniques.
-  \item Controller side: Value iteration networks and deep Q networks in the setting of distributed 
+  \item For more general rewards we are currently looking at deep 
+  reinforcement learning algorithms.
+  \end{itemize}
+  \item Controller-side: Value iteration networks and deep Q networks in the setting of distributed 
   systems with lossy delayed communications.
   \item Experimental aspects of the project: Run an intelligent RRM and model-free controller in tandem.
-  \item Final goal: The RRM learns the optimal scheduling taking into account the control issues. The controller
-  accounts for total asynchronicity. {\color{blue} ONLINE!!}
+  \item Final goal: The RRM learns the optimal scheduling taking into account the control issues. 
+  The controller is distributed and
+  accounts for dynamic resource availabilities. {\color{purple} ONLINE!!}
   \end{itemize}
+\end{frame}
+\begin{frame}
+\Huge{\centerline{The End}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -708,9 +711,6 @@ nonlinear systems. NOLCOS.
 % }
 % \end{frame}
 %------------------------------------------------
-\begin{frame}
-\Huge{\centerline{The End}}
-\end{frame}
 
 %----------------------------------------------------------------------------------------
 

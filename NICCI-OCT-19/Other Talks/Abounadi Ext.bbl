@@ -1,0 +1,91 @@
+\begin{thebibliography}{10}
+
+\bibitem{abounadi}
+J.~Abounadi, D.P. Bertsekas, and V.~Borkar.
+\newblock Stochastic approximation for nonexpansive maps: Application to
+  q-learning algorithms.
+\newblock {\em SIAM Journal on Control and Optimization}, 41(1):1--22, 2002.
+
+\bibitem{Aubin}
+J.~Aubin and A.~Cellina.
+\newblock {\em Differential Inclusions: Set-Valued Maps and Viability Theory}.
+\newblock Springer, 1984.
+
+\bibitem{Benaim96}
+M.~Bena{\" i}m.
+\newblock A dynamical system approach to stochastic approximations.
+\newblock {\em SIAM J. Control Optim.}, 34(2):437--472, 1996.
+
+\bibitem{BenaimHirsch}
+M.~Bena{\"i}m and M.~W. Hirsch.
+\newblock Asymptotic pseudotrajectories and chain recurrent flows, with
+  applications.
+\newblock {\em J. Dynam. Differential Equations}, 8:141--176, 1996.
+
+\bibitem{Benaim05}
+M.~Bena\"{i}m, J.~Hofbauer, and S.~Sorin.
+\newblock Stochastic approximations and differential inclusions.
+\newblock {\em SIAM Journal on Control and Optimization}, pages 328--348, 2005.
+
+\bibitem{BertsekasBook}
+D.P. Bertsekas and J.N. Tsitsiklis.
+\newblock {\em Neuro-Dynamic Programming}.
+\newblock Athena Scientific, 1st edition, 1996.
+
+\bibitem{billingsley}
+P.~Billingsley.
+\newblock {\em Convergence of probability measures}.
+\newblock John Wiley \& Sons, 2013.
+
+\bibitem{Borkartt}
+V.~S. Borkar.
+\newblock Stochastic approximation with two time scales.
+\newblock {\em Syst. Control Lett.}, 29(5):291--294, 1997.
+
+\bibitem{BorkarBook}
+V.~S. Borkar.
+\newblock {\em Stochastic Approximation: A Dynamical Systems Viewpoint}.
+\newblock Cambridge University Press, 2008.
+
+\bibitem{Borkar99}
+V.~S. Borkar and S.P. Meyn.
+\newblock The {O.D.E.} method for convergence of stochastic approximation and
+  reinforcement learning.
+\newblock {\em SIAM J. Control Optim}, 38:447--469, 1999.
+
+\bibitem{vroy}
+D.P.~De Farias and B.~Van Roy.
+\newblock On the existence of fixed points for approximate value iteration and
+  temporal-difference learning.
+\newblock {\em Journal of Optimization theory and Applications},
+  105(3):589--608, 2000.
+
+\bibitem{jaakkola}
+T.~Jaakkola, M.~I. Jordan, and S.P. Singh.
+\newblock Convergence of stochastic iterative dynamic programming algorithms.
+\newblock In {\em Advances in neural information processing systems}, pages
+  703--710, 1994.
+
+\bibitem{munos}
+R.~Munos.
+\newblock Error bounds for approximate value iteration.
+\newblock In {\em Proceedings of the National Conference on Artificial
+  Intelligence}, volume~20, page 1006, 2005.
+
+\bibitem{nadler}
+S.~Nadler.
+\newblock Multi-valued contraction mappings.
+\newblock {\em Pacific Journal of Mathematics}, 30(2):475--488, 1969.
+
+\bibitem{ramaswamy}
+A.~Ramaswamy and S.~Bhatnagar.
+\newblock A generalization of the {B}orkar-{M}eyn theorem for stochastic
+  recursive inclusions.
+\newblock {\em Mathematics of Operations Research}, 2016.
+
+\bibitem{robbins}
+Herbert Robbins and Sutton Monro.
+\newblock A stochastic approximation method.
+\newblock {\em The annals of mathematical statistics}, pages 400--407, 1951.
+
+\end{thebibliography}
